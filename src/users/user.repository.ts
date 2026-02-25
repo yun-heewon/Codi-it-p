@@ -22,7 +22,7 @@ export class UserRepository {
   async getUserById(id: string) {
     return this.prisma.user.findUnique({
       where: { id },
-      include: { grade: true },
+      include: { grade: true, Store: true },
     });
   }
 

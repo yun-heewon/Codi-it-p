@@ -33,6 +33,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       throw new UnauthorizedException('인증되지 않은 사용자입니다.');
     }
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      type: user.type,
+      storeId: user.Store?.id,
+    };
   }
 }
