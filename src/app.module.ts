@@ -7,6 +7,12 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './users/user.module';
 import { StoreModule } from './stores/store.module';
 import { ProductModule } from './products/product.module';
+import { NotificationModule } from './notification/notification.module';
+import { InquiryModule } from './inquiry/inquiry.module';
+import { DashboardController } from './dashboard/dashboard.controller';
+import { DashboardService } from './dashboard/dashboard.service';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -16,8 +22,12 @@ import { ProductModule } from './products/product.module';
     UserModule,
     StoreModule,
     ProductModule,
+    NotificationModule,
+    InquiryModule,
+    DashboardModule,
+    CartModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, DashboardController],
+  providers: [AppService, DashboardService],
 })
 export class AppModule {}

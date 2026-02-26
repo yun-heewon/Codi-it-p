@@ -8,9 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.enableCors({
-    origin: 'http://localhost:3001', // 프론트엔드 주소 허용
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: process.env.FRONTEND_URL || 'http://localhost:3001', // 프론트엔드 주소 허용
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    maxAge: 86400,
+    allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
   });
   app.setGlobalPrefix('api');
 
