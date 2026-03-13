@@ -12,8 +12,9 @@ import { DashboardService } from './dashboard.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DashboardResponseDto } from './dtos/dashboard-response.dto';
 import { GetStoreId } from './get-store-decorator';
+import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), SellerStoreGuard)
 @Controller('dashboard')
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}

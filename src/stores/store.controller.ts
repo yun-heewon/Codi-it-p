@@ -10,6 +10,7 @@ import {
   Patch,
   Post,
   Query,
+  SetMetadata,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -28,15 +29,19 @@ import { MyStoreResponseDto } from './dtos/my-store-response.dto';
 import { ProductResponseDto } from './dtos/product-response.dto';
 import { MyStoreProductResponseDto } from './dtos/my-store-product-response.dto';
 import { StoreLikeResponseDto } from './dtos/store-like-response.dto';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
+import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
 
 @Controller('stores')
-@UseGuards(AuthGuard('jwt'))
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post()
+  @SetMetadata('role', 'SELLER')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', getMulterS3Config()))
   @HttpCode(HttpStatus.CREATED)
   async createStore(
     @GetUser('id') userId: string,
@@ -51,8 +56,9 @@ export class StoreController {
   }
 
   @Patch(':storeId')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', getMulterS3Config()))
   @HttpCode(HttpStatus.OK)
   async updateStore(
     @Param('storeId') storeId: string,
@@ -82,6 +88,7 @@ export class StoreController {
   }
 
   @Get('detail/my')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   async getMyStore(@GetUser('id') userId: string): Promise<MyStoreResponseDto> {
@@ -90,6 +97,7 @@ export class StoreController {
   }
 
   @Get('detail/my/product')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   async getMyStoreProducts(
@@ -110,6 +118,7 @@ export class StoreController {
   }
 
   @Post(':storeId/favorite')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   async registerStoreLike(
@@ -124,6 +133,7 @@ export class StoreController {
   }
 
   @Delete(':storeId/favorite')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   async deleteStoreLike(

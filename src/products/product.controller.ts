@@ -10,7 +10,9 @@ import {
   Patch,
   Post,
   Query,
+  SetMetadata,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -23,14 +25,19 @@ import { UpdateProductDto } from './dtos/update-product.dto';
 import { InquiryResponse } from './dtos/inquiry-response.dto';
 import { CreateInquiryDto } from './dtos/create-inquiry.dto';
 import { InquiriesListResponse } from './dtos/inquiries-list-response.dto';
+import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', getMulterS3Config()))
   @HttpCode(HttpStatus.CREATED)
   async createProduct(
     @GetUser('id') userId: string,
@@ -53,8 +60,9 @@ export class ProductController {
   }
 
   @Patch(':productId')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', getMulterS3Config()))
   @HttpCode(HttpStatus.OK)
   async updateProduct(
     @GetUser('id') userId: string,
@@ -87,6 +95,7 @@ export class ProductController {
   }
 
   @Delete(':productId')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteProduct(
     @GetUser('id') userId: string,
@@ -97,6 +106,8 @@ export class ProductController {
 
   // 상품 문의 등록
   @Post(':productId/inquiries')
+  @SetMetadata('role', 'BUYER')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
   async postProductInquiry(

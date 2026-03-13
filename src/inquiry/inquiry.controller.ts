@@ -10,6 +10,8 @@ import {
   Patch,
   Post,
   Query,
+  SetMetadata,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { InquiryService } from './inquiry.service';
@@ -24,6 +26,9 @@ import {
 import { UpdateInquiryDto } from './dtos/update-inquiry.dto';
 import { InquiryResponse } from 'src/products/dtos/inquiry-response.dto';
 import { CreateOrUpdateInquiryReplyDto } from './dtos/create-update-reply.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @Controller('inquiries')
 export class InquiryController {
@@ -31,6 +36,7 @@ export class InquiryController {
 
   // 내 문의 리스트 조회
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
   async getMyInquiries(
@@ -63,6 +69,8 @@ export class InquiryController {
   }
 
   @Patch(':inquiryId')
+  @SetMetadata('role', 'BUYER')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
   async updateInquiry(
@@ -80,6 +88,8 @@ export class InquiryController {
   }
 
   @Delete(':inquiryId')
+  @SetMetadata('role', 'BUYER')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
   async deleteInquiry(
@@ -95,6 +105,7 @@ export class InquiryController {
 
   // 문의 답변 생성
   @Post('/:inquiryId/replies')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(ClassSerializerInterceptor)
   async postInquiryReply(
@@ -113,6 +124,7 @@ export class InquiryController {
 
   // 문의 답변 상세조회
   @Get('/:replyId/replies')
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(ClassSerializerInterceptor)
   async getDetailReply(
@@ -127,6 +139,9 @@ export class InquiryController {
   }
 
   @Patch('/:replyId/replies')
+  @UseGuards(AuthGuard('jwt'), SellerStoreGuard)
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(ClassSerializerInterceptor)
   async updateReply(
     @GetUser('id') userId: string,
     @Param('replyId') replyId: string,

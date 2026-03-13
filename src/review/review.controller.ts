@@ -69,8 +69,8 @@ export class ReviewController {
   }
 
   @Delete('review/:reviewId')
-  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteReview(
     @Param('reviewId') reviewId: string,
     @GetUser('id') userId: string,

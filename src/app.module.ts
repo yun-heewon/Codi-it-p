@@ -13,6 +13,8 @@ import { DashboardController } from './dashboard/dashboard.controller';
 import { DashboardService } from './dashboard/dashboard.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CartModule } from './cart/cart.module';
+import { OrderModule } from './order/order.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { CartModule } from './cart/cart.module';
     InquiryModule,
     DashboardModule,
     CartModule,
+    OrderModule,
+    ReviewModule,
   ],
   controllers: [AppController, DashboardController],
   providers: [AppService, DashboardService],

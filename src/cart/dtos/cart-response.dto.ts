@@ -1,7 +1,9 @@
+import { Expose } from 'class-transformer';
 import { CartItemDto } from './cart-item.dto';
 import { CartDto } from './cart.dto';
 
 export class CartResponseDto extends CartDto {
+  @Expose()
   items: CartItemDto[];
 
   constructor(partial: Partial<CartResponseDto>) {
