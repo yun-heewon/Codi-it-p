@@ -9,8 +9,6 @@ import { StoreModule } from './stores/store.module';
 import { ProductModule } from './products/product.module';
 import { NotificationModule } from './notification/notification.module';
 import { InquiryModule } from './inquiry/inquiry.module';
-import { DashboardController } from './dashboard/dashboard.controller';
-import { DashboardService } from './dashboard/dashboard.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
@@ -31,7 +29,7 @@ import { ReviewModule } from './review/review.module';
     OrderModule,
     ReviewModule,
   ],
-  controllers: [AppController, DashboardController],
-  providers: [AppService, DashboardService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -1,16 +1,36 @@
+import { Expose, Type } from 'class-transformer';
 import { FrontPayment } from './front-order.dto';
 
 export class FrontOrderDto {
+  @Expose()
   id!: string;
+
+  @Expose()
   name!: string;
+
+  @Expose()
   phoneNumber!: string;
+
+  @Expose()
   address!: string;
+
+  @Expose()
   subtotal!: number;
+
+  @Expose()
   totalQuantity!: number;
+
+  @Expose()
   usePoint!: number;
+
+  @Expose()
   createdAt!: string;
 
+  @Expose()
   orderItems!: any[];
+
+  @Expose()
+  @Type(() => FrontPayment)
   payments!: FrontPayment | null;
 
   constructor(partial: Record<string, any>) {
