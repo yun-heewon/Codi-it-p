@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import {
   IsDateString,
   IsNotEmpty,
@@ -57,6 +57,14 @@ export class StoreResponseDto {
   @IsString()
   @IsUrl()
   @Expose()
+  @Transform(({ value }) => {
+    if (!value) return '/images/sample-store.png';
+    const strValue = String(value);
+    if (strValue.startsWith('http')) return strValue;
+
+    const baseUrl = process.env.AWS_S3_BASE_URL;
+    return `${baseUrl}${value}`;
+  })
   image?: string | null | undefined;
 
   constructor(partial: Partial<StoreResponseDto>) {

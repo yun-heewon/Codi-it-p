@@ -13,6 +13,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { ReviewModule } from './review/review.module';
+import { MetadataModule } from './metadata/metadata.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ReviewModule } from './review/review.module';
     CartModule,
     OrderModule,
     ReviewModule,
+    MetadataModule,
   ],
   controllers: [AppController],
   providers: [AppService],

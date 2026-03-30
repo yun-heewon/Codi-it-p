@@ -46,10 +46,10 @@ export class StoreController {
   async createStore(
     @GetUser('id') userId: string,
     @Body() data: CreateStoreDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() file?: Express.MulterS3.File,
   ): Promise<StoreResponseDto> {
     if (file) {
-      data.image = file.originalname;
+      data.image = file.key;
     }
     const result = await this.storeService.createStore(userId, data);
     return new StoreResponseDto(result);
@@ -64,10 +64,10 @@ export class StoreController {
     @Param('storeId') storeId: string,
     @GetUser('id') userId: string,
     @Body() data: UpdateStoreDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() file?: Express.MulterS3.File,
   ): Promise<StoreResponseDto> {
     if (file) {
-      data.image = file.originalname;
+      data.image = file.key;
     }
     const updatedStore = await this.storeService.updateStore(
       storeId,

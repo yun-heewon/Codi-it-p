@@ -51,6 +51,17 @@ export class InquiryProductDto {
 
   constructor(partial: Partial<InquiryProductDto>) {
     Object.assign(this, partial);
+
+    const s3BaseUrl = process.env.AWS_S3_BASE_URL;
+
+    if (
+      this.image &&
+      typeof this.image === 'string' &&
+      !this.image.startsWith('http')
+    ) {
+      const baseUrl = s3BaseUrl?.endsWith('/') ? s3BaseUrl : `${s3BaseUrl}/`;
+      this.image = `${baseUrl}${this.image}`;
+    }
   }
 }
 export class InquiryItemDto {
@@ -109,5 +120,20 @@ export class InquiryList {
 
   constructor(partial: Partial<InquiryList>) {
     Object.assign(this, partial);
+
+    if (this.list && Array.isArray(this.list)) {
+      const s3BaseUrl = process.env.AWS_S3_BASE_URL!;
+      const baseUrl = s3BaseUrl.endsWith('/') ? s3BaseUrl : `${s3BaseUrl}/`;
+
+      this.list = this.list.map((inquiry) => {
+        // 문의에 연결된 상품이 있다면 이미지 조립
+        if (inquiry.product && inquiry.product.image) {
+          if (!inquiry.product.image.startsWith('http')) {
+            inquiry.product.image = `${baseUrl}${inquiry.product.image}`;
+          }
+        }
+        return inquiry;
+      });
+    }
   }
 }

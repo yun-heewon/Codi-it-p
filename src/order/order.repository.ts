@@ -46,6 +46,9 @@ function mapOrderToFront(
   order: OrderWithItems,
   sizeMap: Map<number, { en: string; ko: string }>,
 ): FrontOrder {
+  const s3BaseUrl = process.env.AWS_S3_BASE_URL!;
+  const baseUrl = s3BaseUrl.endsWith('/') ? s3BaseUrl : `${s3BaseUrl}/`;
+
   return {
     id: order.id,
     name: order.name,
@@ -58,6 +61,11 @@ function mapOrderToFront(
     orderItems: order.OrderItem.map((it) => {
       const sizeInfo = sizeMap.get(it.sizeId) ?? { en: '', ko: '' };
       const en = sizeInfo.en || sizeInfo.ko;
+      const rawImage = it.product?.image;
+      const fullImage =
+        rawImage && !rawImage.startsWith('http')
+          ? `${baseUrl}${rawImage}`
+          : rawImage;
       return {
         id: it.id,
         price: toNumber(it.price),
@@ -66,7 +74,7 @@ function mapOrderToFront(
         productId: it.productId,
         product: {
           name: it.product?.name ?? '',
-          image: it.product?.image ?? undefined,
+          image: fullImage,
           reviews: (it.product?.Review ?? []).map((r) => ({
             id: r.id,
             rating: r.rating,
@@ -205,12 +213,12 @@ export class OrderRepository {
         throw new Error('사용 포인트가 결제금액보다 클 수 없습니다.');
       }
 
-      const remaining = subtotal.sub(usePointDec);
-      if (!remaining.isZero()) {
-        throw new Error(
-          '잔액이 남아 결제할 수 없습니다. 포인트로 전액 결제만 가능합니다.',
-        );
-      }
+      // const remaining = subtotal.sub(usePointDec);
+      // if (!remaining.isZero()) {
+      //   throw new Error(
+      //     '잔액이 남아 결제할 수 없습니다. 포인트로 전액 결제만 가능합니다.',
+      //   );
+      // }
 
       // 포인트 잔액 검증 및 차감
       if (usePoint > 0) {

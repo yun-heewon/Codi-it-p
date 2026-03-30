@@ -14,6 +14,12 @@ export class InquiriesListResponse {
   totalCount: number;
 
   constructor(partial: Partial<InquiriesListResponse>) {
-    Object.assign(this, partial);
+    this.totalCount = partial.totalCount ?? 0;
+
+    if (partial.list) {
+      this.list = partial.list.map((item) => new InquiriesResponse(item));
+    } else {
+      this.list = [];
+    }
   }
 }

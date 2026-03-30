@@ -35,6 +35,14 @@ export class FrontProduct {
   constructor(partial: Record<string, any>) {
     Object.assign(this, partial);
 
+    const s3BaseUrl = process.env.AWS_S3_BASE_URL;
+    // 주소 끝에 /가 없으면 붙여주는 안전장치
+    const baseUrl = s3BaseUrl?.endsWith('/') ? s3BaseUrl : `${s3BaseUrl}/`;
+
+    if (this.image && !this.image.startsWith('http')) {
+      this.image = `${baseUrl}${this.image}`;
+    }
+
     // unknown으로 받아서 안전하게 접근합니다.
     const rawReviews = partial['reviews'] as unknown;
 

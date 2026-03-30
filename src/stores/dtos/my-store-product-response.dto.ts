@@ -16,5 +16,10 @@ export class MyStoreProductResponseDto {
 
   constructor(partial: Partial<MyStoreProductResponseDto>) {
     Object.assign(this, partial);
+
+    if (partial.list) {
+      this.list = partial.list.map((item) => new ProductResponseDto(item));
+    }
+    this.totalCount = partial.totalCount ?? 0;
   }
 }

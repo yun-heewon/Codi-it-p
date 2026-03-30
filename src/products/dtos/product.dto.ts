@@ -1,26 +1,26 @@
-export interface ProductListDto {
-  id: string;
-  storeId: string;
-  storeName: string;
-  name: string;
-  image: string;
-  price: number;
-  discountPrice: number;
-  discountRate: number;
-  discountStartTime?: Date | null;
-  discountEndTime?: Date | null;
-  reviewsCount: number;
-  reviewsRating: number;
-  createdAt: string;
-  updatedAt: string;
-  sales: number;
-  isSoldOut: boolean;
-}
+// export interface ProductListDto {
+//   id: string;
+//   storeId: string;
+//   storeName: string;
+//   name: string;
+//   image: string;
+//   price: number;
+//   discountPrice: number;
+//   discountRate: number;
+//   discountStartTime?: Date | null;
+//   discountEndTime?: Date | null;
+//   reviewsCount: number;
+//   reviewsRating: number;
+//   createdAt: string;
+//   updatedAt: string;
+//   sales: number;
+//   isSoldOut: boolean;
+// }
 
-export interface ProductListResponse {
-  list: ProductListDto[];
-  totalCount: number;
-}
+// export interface ProductListResponse {
+//   list: ProductListDto[];
+//   totalCount: number;
+// }
 
 export enum CategoryType {
   TOP = 'top',

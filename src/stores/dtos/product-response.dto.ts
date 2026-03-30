@@ -4,7 +4,6 @@ import {
   IsDateString,
   IsInt,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsUrl,
 } from 'class-validator';
@@ -15,7 +14,6 @@ export class ProductResponseDto {
   @Expose()
   id: string;
 
-  @IsOptional()
   @IsString()
   @IsUrl()
   @Expose()
@@ -51,5 +49,14 @@ export class ProductResponseDto {
 
   constructor(partial: Partial<ProductResponseDto>) {
     Object.assign(this, partial);
+
+    const s3BaseUrl = process.env.AWS_S3_BASE_URL;
+
+    if (this.image) {
+      if (!this.image.startsWith('http')) {
+        const baseUrl = s3BaseUrl!.endsWith('/') ? s3BaseUrl : `${s3BaseUrl}/`;
+        this.image = `${baseUrl}${this.image}`;
+      }
+    }
   }
 }

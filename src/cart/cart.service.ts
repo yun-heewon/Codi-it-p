@@ -18,29 +18,31 @@ export class CartService {
     dto: CreateCartItemDto,
   ): Promise<CartDto> {
     const cart = await this.cartRepository.getOrCreateCartByBuyer(buyerId);
-    const existing = await this.cartRepository.findCartItem(
-      cart.id,
-      dto.productId,
-      dto.sizeId,
-    );
 
-    if (existing) {
-      await this.cartRepository.updateCartItem(
-        existing.id,
-        existing.quantity + dto.quantity,
+    if (dto.productId && dto.sizeId) {
+      const existing = await this.cartRepository.findCartItem(
+        cart.id,
+        dto.productId,
+        dto.sizeId,
       );
-    } else {
-      const createData: Prisma.CartItemCreateInput = {
-        cart: { connect: { id: cart.id } },
-        product: { connect: { id: dto.productId } },
-        size: { connect: { id: dto.sizeId } },
-        quantity: dto.quantity,
-      };
-      await this.cartRepository.createCartItem(createData);
+
+      if (existing) {
+        await this.cartRepository.updateCartItem(
+          existing.id,
+          existing.quantity + (dto.quantity || 1),
+        );
+      } else {
+        const createData: Prisma.CartItemCreateInput = {
+          cart: { connect: { id: cart.id } },
+          product: { connect: { id: dto.productId } },
+          size: { connect: { id: dto.sizeId } },
+          quantity: dto.quantity || 1,
+        };
+        await this.cartRepository.createCartItem(createData);
+      }
+
+      await this.cartRepository.recalcCartQuantity(cart.id);
     }
-
-    await this.cartRepository.recalcCartQuantity(cart.id);
-
     const updatedCart =
       await this.cartRepository.getOrCreateCartByBuyer(buyerId);
 

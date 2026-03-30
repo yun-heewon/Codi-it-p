@@ -9,5 +9,11 @@ export class CartResponseDto extends CartDto {
   constructor(partial: Partial<CartResponseDto>) {
     super(partial);
     Object.assign(this, partial);
+
+    if (partial.items && Array.isArray(partial.items)) {
+      this.items = partial.items.map((item) => new CartItemDto(item));
+    } else {
+      this.items = [];
+    }
   }
 }

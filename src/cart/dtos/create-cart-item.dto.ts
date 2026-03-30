@@ -1,16 +1,19 @@
-import { IsInt, IsString, IsNotEmpty, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsInt, IsString, IsOptional, Min } from 'class-validator';
 
 export class CreateCartItemDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   productId: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
-  sizeId: number;
+  @Type(() => Number)
+  sizeId?: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
+  @Type(() => Number)
   @Min(1)
-  quantity: number;
+  quantity?: number;
 }

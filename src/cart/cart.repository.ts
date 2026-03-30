@@ -117,6 +117,7 @@ export class CartRepository {
     cartItemId: string,
     buyerId: string,
   ): Promise<CartItemPrismaPayload> {
+    console.log('검사 중인 ID 타입:', typeof cartItemId, cartItemId);
     const item = await this.prisma.cartItem.findFirst({
       where: { id: cartItemId, cart: { buyerId } },
       include: cartItemIncludeOptions,

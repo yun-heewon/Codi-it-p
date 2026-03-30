@@ -6,7 +6,7 @@ declare global {
         email: string;
         type: 'SELLER' | 'BUYER';
       };
-      file?: any; // Multer 사용 시
+      file?: MulterS3.File;
       storeId?: string;
     }
 

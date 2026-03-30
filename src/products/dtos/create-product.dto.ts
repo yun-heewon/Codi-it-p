@@ -16,6 +16,7 @@ export class CreateProductDto {
   @IsString({ message: '상품번호는 문자열이어야 합니다.' })
   name: string;
 
+  @Type(() => Number)
   @IsNotEmpty({ message: '상품 가격은 필수 입력 항목입니다.' })
   @IsInt({ message: '상품 가격은 숫자여야 합니다.' })
   price: number;
@@ -28,6 +29,7 @@ export class CreateProductDto {
   @IsString({ message: '상품이미지경로는 문자열이어야 합니다.' })
   image: string;
 
+  @Type(() => Number)
   @IsOptional()
   @IsInt({ message: '할인율은 숫자여야 합니다.' })
   discountRate: number;

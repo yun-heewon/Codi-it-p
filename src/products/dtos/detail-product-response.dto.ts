@@ -101,5 +101,23 @@ export class DetailProductResponse {
 
   constructor(partial: Partial<DetailProductResponse>) {
     Object.assign(this, partial);
+
+    const s3BaseUrl = process.env.AWS_S3_BASE_URL;
+
+    // 2. image 필드가 비어있지 않고, http로 시작하지 않을 때만 조립
+    if (
+      this.image &&
+      typeof this.image === 'string' &&
+      !this.image.startsWith('http')
+    ) {
+      // 주소 끝에 /가 있으면 제거하고, 파일명 앞에 /를 붙여서 깔끔하게 합치기
+      const cleanBaseUrl = s3BaseUrl!.replace(/\/$/, ''); // 끝에 있는 / 제거
+      const cleanFileName = this.image.replace(/^\//, ''); // 앞에 있는 / 제거
+
+      this.image = `${cleanBaseUrl}/${cleanFileName}`;
+
+      // ✅ 진짜 최종 주소가 어떻게 만들어졌는지 터미널에 찍어보세요!
+      console.log('🚀 [최종 이미지 URL 확인]:', this.image);
+    }
   }
 }

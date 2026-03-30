@@ -29,6 +29,7 @@ import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
+import { ProductListResponse } from './dtos/product-list-responst.dto';
 
 @Controller('products')
 export class ProductController {
@@ -42,10 +43,10 @@ export class ProductController {
   async createProduct(
     @GetUser('id') userId: string,
     @Body() data: CreateProductDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() file?: Express.MulterS3.File,
   ): Promise<DetailProductResponse> {
     if (file) {
-      data.image = file.originalname;
+      data.image = file.key;
     }
     const product = await this.productService.createProduct(userId, data);
     return new DetailProductResponse(product);
@@ -55,8 +56,8 @@ export class ProductController {
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.OK)
   async getProducts(@Query() query: GetProductsQueryDto) {
-    const result = await this.productService.getProducts(query);
-    return result;
+    const { list, totalCount } = await this.productService.getProducts(query);
+    return new ProductListResponse(list, totalCount);
   }
 
   @Patch(':productId')
@@ -68,10 +69,10 @@ export class ProductController {
     @GetUser('id') userId: string,
     @Param('productId') productId: string,
     @Body() data: UpdateProductDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() file?: Express.MulterS3.File,
   ): Promise<DetailProductResponse> {
     if (file) {
-      data.image = file.originalname;
+      data.image = file.key;
     }
 
     const updateProduct = await this.productService.updateProduct(

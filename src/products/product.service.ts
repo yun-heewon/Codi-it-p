@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ProductRepository } from './product.repository';
 import { StoreRepository } from 'src/stores/store.repository';
-import { CategoryType, ProductListResponse } from './dtos/product.dto';
+import { CategoryType } from './dtos/product.dto';
 import { NotificationType, Prisma } from '@prisma/client';
 import { CreateNotificationDto } from 'src/notification/dtos/create.dto';
 import { NotificationService } from 'src/notification/notification.service';
@@ -18,6 +18,7 @@ import { GetProductsQueryDto } from './dtos/get-product-query.dto';
 import { InquiryResponse } from './dtos/inquiry-response.dto';
 import { InquiriesListResponse } from './dtos/inquiries-list-response.dto';
 import { CreateInquiryDto } from './dtos/create-inquiry.dto';
+import { ProductListResponse } from './dtos/product-list-responst.dto';
 
 @Injectable()
 export class ProductService {

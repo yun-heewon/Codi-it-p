@@ -5,7 +5,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { UserMapper } from './dtos/user-response.dto';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -33,7 +32,7 @@ export class UserService {
       grade: { connect: { id: 'grade_green' } },
     });
 
-    return UserMapper.toUserResponse(newUser);
+    return newUser;
   }
 
   async getUser(userId: string) {
@@ -41,7 +40,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException('유저를 찾을 수 없습니다.');
     }
-    return UserMapper.toUserResponse(user);
+    return user;
   }
 
   async updateUser(userId: string, data: UpdateUserDto) {
@@ -69,7 +68,7 @@ export class UserService {
       updateData,
     );
 
-    return UserMapper.toUserResponse(updatedUser);
+    return updatedUser;
   }
 
   async getUserLikedStores(userId: string) {
