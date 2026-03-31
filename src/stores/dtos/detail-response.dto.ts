@@ -7,4 +7,9 @@ export class DetailResponseDto extends StoreResponseDto {
   @IsNotEmpty()
   @Expose()
   favoriteCount: number;
+
+  constructor(partial: Partial<DetailResponseDto>) {
+    super(partial);
+    Object.assign(this, partial);
+  }
 }

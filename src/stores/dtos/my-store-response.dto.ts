@@ -17,4 +17,9 @@ export class MyStoreResponseDto extends DetailResponseDto {
   @IsNotEmpty()
   @Expose()
   totalSoldCount: number;
+
+  constructor(partial: Partial<MyStoreResponseDto>) {
+    super(partial);
+    Object.assign(this, partial);
+  }
 }
