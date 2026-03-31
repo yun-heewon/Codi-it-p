@@ -7,10 +7,14 @@ import {
 import { StoreRepository } from './store.repository';
 import { CreateStoreDto } from './dtos/create.dto';
 import { UpdateStoreDto } from './dtos/update.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class StoreService {
-  constructor(private readonly storeRepository: StoreRepository) {}
+  constructor(
+    private readonly storeRepository: StoreRepository,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async createStore(userId: string, data: CreateStoreDto) {
     const trimmedName = data.name.trim();
@@ -128,51 +132,67 @@ export class StoreService {
   }
 
   async registerStoreLike(userId: string, storeId: string) {
-    const existingStore = await this.storeRepository.findById(storeId);
-    if (!existingStore) {
-      throw new NotFoundException('상점을 찾을 수 없습니다.');
-    }
+    return await this.prisma.$transaction(async (tx) => {
+      const currentStore = await tx.store.findUnique({
+        where: { id: storeId },
+        select: { favoriteCount: true },
+      });
 
-    const existingStoreLike = await this.storeRepository.storeLikeCheck(
-      userId,
-      storeId,
-    );
-    if (!existingStoreLike) {
-      await this.storeRepository.createStoreLike(userId, storeId);
-      await this.storeRepository.increaseLikeCount(storeId);
-    }
+      if (!currentStore) {
+        throw new NotFoundException('상점을 찾을 수 없습니다.');
+      }
 
-    const updatedLikeStore = await this.storeRepository.findById(storeId);
+      const existingStoreLike = await this.storeRepository.storeLikeCheck(
+        userId,
+        storeId,
+        tx,
+      );
 
-    return {
-      type: 'register',
-      store: updatedLikeStore,
-    };
+      if (!existingStoreLike) {
+        await this.storeRepository.createStoreLike(userId, storeId, tx);
+        const updatedLikeStore = await this.storeRepository.increaseLikeCount(
+          storeId,
+          tx,
+        );
+        return {
+          type: 'register',
+          store: updatedLikeStore,
+        };
+      }
+    });
   }
 
   async deleteStoreLike(userId: string, storeId: string) {
-    const existingStore = await this.storeRepository.findById(storeId);
-    if (!existingStore) {
-      throw new NotFoundException('상점을 찾을 수 없습니다.');
-    }
+    return await this.prisma.$transaction(async (tx) => {
+      const currentStore = await tx.store.findUnique({
+        where: { id: storeId },
+        select: { favoriteCount: true },
+      });
 
-    const existingStoreLike = await this.storeRepository.storeLikeCheck(
-      userId,
-      storeId,
-    );
-    if (existingStoreLike) {
-      await this.storeRepository.deleteStoreLike(userId, storeId);
-
-      if (existingStore.favoriteCount > 0) {
-        await this.storeRepository.decreaseLikeCount(storeId);
+      if (!currentStore) {
+        throw new NotFoundException('상점을 찾을 수 없습니다.');
       }
-    }
 
-    const updatedLikeStore = await this.storeRepository.findById(storeId);
+      const existingStoreLike = await this.storeRepository.storeLikeCheck(
+        userId,
+        storeId,
+        tx,
+      );
 
-    return {
-      type: 'delete',
-      store: updatedLikeStore,
-    };
+      if (existingStoreLike) {
+        await this.storeRepository.deleteStoreLike(userId, storeId, tx);
+
+        if (currentStore.favoriteCount > 0) {
+          const updatedLikeStore = await this.storeRepository.decreaseLikeCount(
+            storeId,
+            tx,
+          );
+          return {
+            type: 'delete',
+            store: updatedLikeStore,
+          };
+        }
+      }
+    });
   }
 }

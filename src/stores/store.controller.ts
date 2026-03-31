@@ -129,7 +129,7 @@ export class StoreController {
       userId,
       storeId,
     );
-    return new StoreLikeResponseDto(storeLike);
+    return new StoreLikeResponseDto(storeLike!);
   }
 
   @Delete(':storeId/favorite')
@@ -142,6 +142,6 @@ export class StoreController {
   ) {
     const deleteLike = await this.storeService.deleteStoreLike(userId, storeId);
 
-    return new StoreLikeResponseDto(deleteLike);
+    return new StoreLikeResponseDto(deleteLike!);
   }
 }

@@ -84,21 +84,36 @@ export class StoreRepository {
     return result._sum.quantity || 0;
   }
 
-  async storeLikeCheck(userId: string, storeId: string) {
-    return this.prisma.storeLike.findFirst({
+  async storeLikeCheck(
+    userId: string,
+    storeId: string,
+    tx?: Prisma.TransactionClient,
+  ) {
+    const client = tx ?? this.prisma;
+    return client.storeLike.findFirst({
       where: { userId, storeId },
     });
   }
 
-  async createStoreLike(userId: string, storeId: string) {
-    return this.prisma.storeLike.create({
+  async createStoreLike(
+    userId: string,
+    storeId: string,
+    tx?: Prisma.TransactionClient,
+  ) {
+    const client = tx ?? this.prisma;
+    return client.storeLike.create({
       data: { userId, storeId },
       include: { store: true },
     });
   }
 
-  async deleteStoreLike(userId: string, storeId: string) {
-    return this.prisma.storeLike.delete({
+  async deleteStoreLike(
+    userId: string,
+    storeId: string,
+    tx?: Prisma.TransactionClient,
+  ) {
+    const client = tx ?? this.prisma;
+    return client.storeLike.delete({
       where: {
         userId_storeId: {
           userId,
@@ -109,8 +124,9 @@ export class StoreRepository {
     });
   }
 
-  async increaseLikeCount(storeId: string) {
-    return this.prisma.store.update({
+  async increaseLikeCount(storeId: string, tx?: Prisma.TransactionClient) {
+    const client = tx ?? this.prisma;
+    return client.store.update({
       where: { id: storeId },
       data: {
         favoriteCount: { increment: 1 },
@@ -119,8 +135,9 @@ export class StoreRepository {
     });
   }
 
-  async decreaseLikeCount(storeId: string) {
-    return this.prisma.store.update({
+  async decreaseLikeCount(storeId: string, tx?: Prisma.TransactionClient) {
+    const client = tx ?? this.prisma;
+    return client.store.update({
       where: { id: storeId },
       data: {
         favoriteCount: { decrement: 1 },
