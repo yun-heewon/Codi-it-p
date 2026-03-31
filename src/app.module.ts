@@ -14,6 +14,7 @@ import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { ReviewModule } from './review/review.module';
 import { MetadataModule } from './metadata/metadata.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { MetadataModule } from './metadata/metadata.module';
     OrderModule,
     ReviewModule,
     MetadataModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
