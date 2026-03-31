@@ -85,7 +85,14 @@ export class ProductService {
       updatedAt: product.updatedAt.toISOString(),
       reviewsRating: 0,
       reviewsCount: 0,
-      reviews: [],
+      reviews: {
+        rate1Length: 0,
+        rate2Length: 0,
+        rate3Length: 0,
+        rate4Length: 0,
+        rate5Length: 0,
+        sumScore: 0,
+      },
       inquiries: [],
       category: product.Category
         ? {
@@ -339,7 +346,14 @@ export class ProductService {
       updatedAt: updatedProduct.updatedAt.toISOString(),
       reviewsRating: 0,
       reviewsCount: 0,
-      reviews: [],
+      reviews: {
+        rate1Length: 0,
+        rate2Length: 0,
+        rate3Length: 0,
+        rate4Length: 0,
+        rate5Length: 0,
+        sumScore: 0,
+      },
       inquiries: [],
       category: updatedProduct.Category
         ? {
@@ -395,7 +409,7 @@ export class ProductService {
       updatedAt: product.updatedAt.toISOString(),
       reviewsCount,
       reviewsRating,
-      reviews: [reviewCount],
+      reviews: reviewCount,
       inquiries: product.Inquiry.map((i) => ({
         id: i.id,
         title: i.title,

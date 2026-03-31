@@ -74,12 +74,10 @@ export class DetailProductResponse {
   @IsNumber()
   reviewsCount: number;
 
-  // 중첩 객체 배열 처리
   @Expose()
-  @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ReviewDto)
-  reviews: ReviewDto[];
+  reviews: ReviewDto;
 
   @Expose()
   @IsArray()

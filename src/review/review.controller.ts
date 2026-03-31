@@ -91,8 +91,8 @@ export class ReviewController {
 
     const { items, total } = await this.reviewService.getProductReviews(
       productId,
-      validatedLimit,
       validatedPage,
+      validatedLimit,
     );
 
     return new ReviewListResponse({

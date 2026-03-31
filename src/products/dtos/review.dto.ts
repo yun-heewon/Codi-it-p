@@ -31,4 +31,8 @@ export class ReviewDto {
   @IsNumber()
   @Min(0)
   sumScore: number;
+
+  constructor(partial: Partial<ReviewDto>) {
+    Object.assign(this, partial);
+  }
 }
