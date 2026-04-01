@@ -5,6 +5,7 @@ import { CreateOrderDto } from './dtos/create-order.dto';
 import { UpdateOrderDto } from './dtos/update-order.dto';
 import { FrontOrder } from './dtos/front-order.dto';
 import { FrontOrderListResponse } from './dtos/front-order-list-response.dto';
+import { StoreRepository } from 'src/stores/store.repository';
 
 const D = Prisma.Decimal;
 
@@ -109,7 +110,10 @@ function isDiscountActive(
 }
 @Injectable()
 export class OrderRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly storeRepository: StoreRepository,
+  ) {}
 
   /**
    * 주문 생성 트랜잭션
@@ -139,6 +143,7 @@ export class OrderRepository {
           select: {
             id: true,
             price: true,
+            storeId: true,
             discountRate: true,
             discountStartTime: true,
             discountEndTime: true,
@@ -302,6 +307,25 @@ export class OrderRepository {
           status: PaymentStatus.CompletedPayment,
         },
       });
+
+      // 8-1 각 상점별 totalSoldCount 증가 로직
+      const productStoreMap = await tx.product.findMany({
+        where: { id: { in: productIds } },
+        select: { id: true, storeId: true },
+      });
+
+      const storeIdMap = new Map(productStoreMap.map((p) => [p.id, p.storeId]));
+
+      for (const it of items) {
+        const storeId = storeIdMap.get(it.productId);
+        if (storeId) {
+          await this.storeRepository.increaseTotalSoldCount(
+            storeId,
+            it.quantity,
+            tx,
+          );
+        }
+      }
 
       // 9) 응답 매핑(사이즈 라벨 EN 강제)
       const full = await tx.order.findUnique({

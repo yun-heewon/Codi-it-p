@@ -158,4 +158,16 @@ export class StoreRepository {
       },
     });
   }
+
+  async increaseTotalSoldCount(
+    storeId: string,
+    quantity: number,
+    tx?: Prisma.TransactionClient,
+  ) {
+    const client = tx ?? this.prisma;
+    return client.store.update({
+      where: { id: storeId },
+      data: { totalSoldCount: { increment: quantity } },
+    });
+  }
 }
