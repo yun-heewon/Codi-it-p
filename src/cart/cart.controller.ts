@@ -63,7 +63,7 @@ export class CartController {
   @UseInterceptors(ClassSerializerInterceptor)
   async getCartItem(
     @GetUser('id') userId: string,
-    @Param() cartItemId: string,
+    @Param('cartItemId') cartItemId: string,
   ): Promise<CartItemDetailDto> {
     if (typeof cartItemId !== 'string') {
       throw new BadRequestException('cartItemId가 누락되었습니다.');
@@ -78,7 +78,7 @@ export class CartController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async removeCartItem(
     @GetUser('id') userId: string,
-    @Param() cartItemId: string,
+    @Param('cartItemId') cartItemId: string,
   ): Promise<void> {
     await this.cartService.removeCartItem(userId, cartItemId);
   }
