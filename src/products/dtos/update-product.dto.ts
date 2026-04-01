@@ -15,6 +15,7 @@ export class UpdateProductDto {
   name?: string;
 
   @IsOptional()
+  @Type(() => Number)
   @IsNumber({}, { message: '가격은 숫자여야 합니다.' })
   price?: number;
 
@@ -27,16 +28,19 @@ export class UpdateProductDto {
   image?: string;
 
   @IsOptional()
+  @Type(() => Number)
   @IsNumber({}, { message: '할인율은 숫자여야 합니다.' })
   discountRate?: number;
 
   @IsOptional()
   @IsString({ message: '할인 시작 날짜는 문자열이어야 합니다.' })
-  discountStartTime?: string;
+  @Type(() => Date)
+  discountStartTime?: Date | null;
 
   @IsOptional()
   @IsString({ message: '할인 종료 날짜는 문자열이어야 합니다.' })
-  discountEndTime?: string;
+  @Type(() => Date)
+  discountEndTime?: Date | null;
 
   @IsOptional()
   @IsString({ message: '카테고리 이름은 문자열이어야 합니다.' })
