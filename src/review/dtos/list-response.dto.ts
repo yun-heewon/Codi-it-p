@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 
-class ItemDto {
+export class ItemDto {
   @Expose()
   id: string;
 
@@ -37,7 +37,7 @@ class ItemDto {
   }
 }
 
-class MetaDto {
+export class MetaDto {
   @Expose()
   total: number;
 
