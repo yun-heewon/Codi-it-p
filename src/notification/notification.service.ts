@@ -11,17 +11,24 @@ interface SseResponse extends Response {
 
 @Injectable()
 export class NotificationService {
-  private readonly clients = new Map<string, SseResponse>();
+  private readonly clients = new Map<string, Set<SseResponse>>();
 
   constructor(
     private readonly notificationRepository: NotificationRepository,
   ) {}
 
   addClient(userId: string, res: SseResponse): () => void {
-    this.clients.set(userId, res);
+    if (!this.clients.has(userId)) {
+      this.clients.set(userId, new Set());
+    }
+    this.clients.get(userId)!.add(res);
 
     return () => {
-      this.clients.delete(userId);
+      const userClients = this.clients.get(userId);
+      if (userClients) {
+        userClients.delete(res);
+        if (userClients.size === 0) this.clients.delete(userId);
+      }
     };
   }
 
@@ -41,23 +48,23 @@ export class NotificationService {
 
       const client = this.clients.get(userId);
 
-      if (client) {
-        console.log(`Notification sent to user: ${userId}`);
+      if (client && client.size > 0) {
         const notificationToSend = plainToInstance(
           NotificationResponseDto,
           newNotification,
-          {
-            excludeExtraneousValues: true,
-          },
+          { excludeExtraneousValues: true },
         );
 
         const data = JSON.stringify(notificationToSend);
-        client.write(`id: ${newNotification.id}\n`);
-        client.write(`event: message\n`);
-        client.write(`data: ${data}\n\n`);
-        if (typeof client.flush === 'function') {
-          client.flush();
-        }
+
+        client.forEach((client) => {
+          client.write(`id: ${newNotification.id}\n`);
+          client.write(`event: message\n`);
+          client.write(`data: ${data}\n\n`);
+          if (typeof client.flush === 'function') {
+            client.flush();
+          }
+        });
         console.log(`Notification sent to user: ${userId}`);
       } else {
         console.log(`[SSE PUSH FAIL] User ${userId} is NOT connected.`);
