@@ -5,12 +5,13 @@ import {
 } from '@nestjs/common';
 import { LoginDto } from './dtos/login.dto';
 import { UserRepository } from '../users/user.repository';
-import { LoginResponseDto } from './dtos/login-response.dto';
+import { LoginResponseDto, UserProfileDto } from './dtos/login-response.dto';
 import * as bcrypt from 'bcrypt';
 import { AccessTokenPayload } from './interfaces/access-token-payload.interface';
 import { RefreshTokenPayload } from './interfaces/refresh-token-payload.interface';
 import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../common/constants';
 import * as jwt from 'jsonwebtoken';
+import { UserResponseDto } from '../users/dtos/user-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -75,29 +76,20 @@ export class AuthService {
 
     const refreshToken = this.generateRefreshToken({ sub: user.id });
 
+    const userResponse = new UserResponseDto(user) as unknown as UserProfileDto;
+
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        type: user.type,
-        points: user.points ?? 0,
-        image: user.image,
-        grade: {
-          id: user.grade.id,
-          name: user.grade.name,
-          rate: user.grade.rate,
-          minAmount: user.grade.minAmount,
-        },
-      },
+      user: userResponse,
       accessToken,
       refreshToken,
     };
   }
 
-  async refresh(
-    refreshToken: string,
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  async refresh(refreshToken: string): Promise<{
+    user: UserProfileDto;
+    accessToken: string;
+    refreshToken: string;
+  }> {
     try {
       const payload = this.verifyRefreshToken(refreshToken);
 
@@ -114,7 +106,14 @@ export class AuthService {
       // 새 RefreshToken 발급
       const newRefreshToken = this.generateRefreshToken({ sub: user.id });
 
-      return { accessToken, refreshToken: newRefreshToken };
+      const userResponse = new UserResponseDto(
+        user,
+      ) as unknown as UserProfileDto;
+      return {
+        user: userResponse,
+        accessToken,
+        refreshToken: newRefreshToken,
+      };
     } catch (error) {
       console.error('JWT refresh 실패:', error);
       throw new NotFoundException('토큰 재발급 실패');

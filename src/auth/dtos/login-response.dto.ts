@@ -1,12 +1,12 @@
 import { UserType } from '@prisma/client';
 
-class GradeDto {
+export class GradeDto {
   id!: string;
   name!: string;
   rate!: number;
   minAmount!: number;
 }
-class UserProfileDto {
+export class UserProfileDto {
   id!: string;
   email!: string;
   name!: string;
