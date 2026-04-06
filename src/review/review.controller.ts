@@ -14,7 +14,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { ReviewCreateDto } from './dtos/create.dto';
 import { ReviewResponseDto } from './dtos/response.dto';
 import { ReviewUpdateDto } from './dtos/update.dto';

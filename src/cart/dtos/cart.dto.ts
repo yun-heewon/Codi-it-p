@@ -4,21 +4,21 @@ import { IsString, IsInt, IsDateString } from 'class-validator';
 export class CartDto {
   @IsString()
   @Type(() => String)
-  id: string;
+  id!: string;
 
   @IsString()
   @Type(() => String)
-  buyerId: string;
+  buyerId!: string;
 
   @IsInt()
   @Type(() => Number)
-  quantity: number;
+  quantity!: number;
 
   @IsDateString()
-  createdAt: string;
+  createdAt!: string;
 
   @IsDateString()
-  updatedAt: string;
+  updatedAt!: string;
 
   constructor(partial: Partial<CartDto>) {
     Object.assign(this, partial);

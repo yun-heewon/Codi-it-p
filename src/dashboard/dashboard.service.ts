@@ -10,11 +10,11 @@ import {
   getStartOfToday,
   getStartOfWeek,
   getStartOfYear,
-} from 'src/common/utils/date-util';
+} from '../common/utils/date-util';
 import { PeriodSummaryDto } from './dtos/period.dto';
 import { ChangeRateDto } from './dtos/change-rate.dto';
 import { DashboardResponseDto } from './dtos/dashboard-response.dto';
-import { calculateChangeRate } from 'src/common/utils/stats-util';
+import { calculateChangeRate } from '../common/utils/stats-util';
 
 type PeriodKey = 'today' | 'week' | 'month' | 'year';
 

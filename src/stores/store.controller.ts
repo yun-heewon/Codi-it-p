@@ -18,7 +18,7 @@ import {
 import { StoreService } from './store.service';
 import { CreateStoreDto } from './dtos/create.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { StoreResponseDto } from './dtos/response.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,9 +29,9 @@ import { MyStoreResponseDto } from './dtos/my-store-response.dto';
 import { ProductResponseDto } from './dtos/product-response.dto';
 import { MyStoreProductResponseDto } from './dtos/my-store-product-response.dto';
 import { StoreLikeResponseDto } from './dtos/store-like-response.dto';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
-import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { SellerStoreGuard } from '../common/guards/seller-store.guard';
+import { getMulterS3Config } from '../common/guards/configs/multer-s3.config';
 
 @Controller('stores')
 export class StoreController {

@@ -9,17 +9,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  gradeid   String
-  name      String   @db.VarChar(20)
-  email     String   @unique @db.VarChar(100)
-  password  String   @db.VarChar(255)
-  image     String?  @default("https://placehold.co/400.jpg?text=user")
-  points    Int      @default(0)
-  type      UserType
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  isDeleted Boolean  @default(false)
+  id           String   @id @default(cuid())
+  gradeid      String
+  name         String   @db.VarChar(20)
+  email        String   @unique @db.VarChar(100)
+  password     String   @db.VarChar(255)
+  image        String?  @default("https://placehold.co/400.jpg?text=user")
+  points       Int      @default(0)
+  totalPayment Int      @default(0)
+  type         UserType
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  isDeleted    Boolean  @default(false)
 
   grade        Grade          @relation(fields: [gradeid], references: [id])
   cart         Cart[]         @relation("UserCart")

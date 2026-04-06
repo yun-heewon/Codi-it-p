@@ -16,7 +16,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { DetailProductResponse } from './dtos/detail-product-response.dto';
@@ -25,10 +25,10 @@ import { UpdateProductDto } from './dtos/update-product.dto';
 import { InquiryResponse } from './dtos/inquiry-response.dto';
 import { CreateInquiryDto } from './dtos/create-inquiry.dto';
 import { InquiriesListResponse } from './dtos/inquiries-list-response.dto';
-import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
+import { SellerStoreGuard } from '../common/guards/seller-store.guard';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { getMulterS3Config } from '../common/guards/configs/multer-s3.config';
 import { ProductListResponse } from './dtos/product-list-responst.dto';
 
 @Controller('products')

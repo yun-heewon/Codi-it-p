@@ -14,11 +14,11 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { getMulterS3Config } from 'src/common/guards/configs/multer-s3.config';
+import { getMulterS3Config } from '../common/guards/configs/multer-s3.config';
 import { UserResponseDto } from './dtos/user-response.dto';
 
 @Controller('users')

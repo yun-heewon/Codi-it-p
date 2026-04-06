@@ -15,20 +15,20 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { InquiryService } from './inquiry.service';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { UserType } from '@prisma/client';
 import { GetMyInquiriesQueryDto } from './dtos/get-my-inquiries-params.dto';
 import { InquiryList } from './dtos/inquiry-list.dto';
 import {
   InquiriesResponse,
   InquiryReplyResponse,
-} from 'src/products/dtos/inquiries-response.dto';
+} from '../products/dtos/inquiries-response.dto';
 import { UpdateInquiryDto } from './dtos/update-inquiry.dto';
-import { InquiryResponse } from 'src/products/dtos/inquiry-response.dto';
+import { InquiryResponse } from '../products/dtos/inquiry-response.dto';
 import { CreateOrUpdateInquiryReplyDto } from './dtos/create-update-reply.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
+import { SellerStoreGuard } from '../common/guards/seller-store.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @Controller('inquiries')
 export class InquiryController {

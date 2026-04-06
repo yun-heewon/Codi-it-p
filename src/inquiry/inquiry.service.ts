@@ -6,17 +6,17 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InquiryRepository } from './inquiry.repository';
-import { NotificationService } from 'src/notification/notification.service';
+import { NotificationService } from '../notification/notification.service';
 import { InquiryStatus, NotificationType, UserType } from '@prisma/client';
 import { InquiryList } from './dtos/inquiry-list.dto';
 import {
   InquiriesResponse,
   InquiryReplyResponse,
-} from 'src/products/dtos/inquiries-response.dto';
+} from '../products/dtos/inquiries-response.dto';
 import { UpdateInquiryDto } from './dtos/update-inquiry.dto';
-import { InquiryResponse } from 'src/products/dtos/inquiry-response.dto';
+import { InquiryResponse } from '../products/dtos/inquiry-response.dto';
 import { CreateOrUpdateInquiryReplyDto } from './dtos/create-update-reply.dto';
-import { CreateNotificationDto } from 'src/notification/dtos/create.dto';
+import { CreateNotificationDto } from '../notification/dtos/create.dto';
 import { GetMyInquiriesQueryDto } from './dtos/get-my-inquiries-params.dto';
 
 @Injectable()

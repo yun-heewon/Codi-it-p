@@ -11,7 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { type Response, type Request } from 'express';
-import { COOKIE_SAMESITE, COOKIE_SECURE } from 'src/common/constants';
+import { COOKIE_SAMESITE, COOKIE_SECURE } from '../common/constants';
 
 @Controller('auth')
 export class AuthController {

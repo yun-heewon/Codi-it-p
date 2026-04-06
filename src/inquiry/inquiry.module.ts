@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { InquiryService } from './inquiry.service';
 import { InquiryController } from './inquiry.controller';
 import { InquiryRepository } from './inquiry.repository';
-import { NotificationModule } from 'src/notification/notification.module';
+import { NotificationModule } from '../notification/notification.module';
 
 @Module({
   imports: [NotificationModule],

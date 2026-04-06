@@ -12,7 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { NotificationService } from './notification.service';
-import { GetUser } from 'src/auth/get-user-decorator';
+import { GetUser } from '../auth/get-user-decorator';
 import { NotificationResponseDto } from './dtos/response.dto';
 import type { Response, Request } from 'express';
 import { JwtService } from '@nestjs/jwt';

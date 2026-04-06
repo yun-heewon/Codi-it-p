@@ -7,7 +7,7 @@ import {
 import { StoreRepository } from './store.repository';
 import { CreateStoreDto } from './dtos/create.dto';
 import { UpdateStoreDto } from './dtos/update.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class StoreService {

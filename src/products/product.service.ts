@@ -5,11 +5,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ProductRepository } from './product.repository';
-import { StoreRepository } from 'src/stores/store.repository';
+import { StoreRepository } from '../stores/store.repository';
 import { CategoryType } from './dtos/product.dto';
 import { NotificationType, Prisma } from '@prisma/client';
-import { CreateNotificationDto } from 'src/notification/dtos/create.dto';
-import { NotificationService } from 'src/notification/notification.service';
+import { CreateNotificationDto } from '../notification/dtos/create.dto';
+import { NotificationService } from '../notification/notification.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { DetailProductResponse } from './dtos/detail-product-response.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';

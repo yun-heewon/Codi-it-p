@@ -11,7 +11,7 @@ import {
 import { DashboardService } from './dashboard.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DashboardResponseDto } from './dtos/dashboard-response.dto';
-import { SellerStoreGuard } from 'src/common/guards/seller-store.guard';
+import { SellerStoreGuard } from '../common/guards/seller-store.guard';
 import { GetStoreId } from './get-store-decorator';
 
 @UseGuards(AuthGuard('jwt'), SellerStoreGuard)

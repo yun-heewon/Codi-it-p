@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, PaymentStatus } from '@prisma/client';
 import { CreateOrderDto } from './dtos/create-order.dto';
 import { UpdateOrderDto } from './dtos/update-order.dto';
 import { FrontOrder } from './dtos/front-order.dto';
 import { FrontOrderListResponse } from './dtos/front-order-list-response.dto';
-import { StoreRepository } from 'src/stores/store.repository';
+import { StoreRepository } from '../stores/store.repository';
 
 const D = Prisma.Decimal;
 
@@ -326,6 +326,47 @@ export class OrderRepository {
           );
         }
       }
+
+      // 8-2 user 누적 구매액 업데이트 및 조회 로직
+
+      const user = await tx.user.findUnique({
+        where: { id: userId },
+        include: { grade: true },
+      });
+
+      if (!user) throw new Error('사용자를 찾을 수 없습니다.');
+
+      // 현재 등급 혜택 적용 (이번 결제에 적용)
+      const currentRate = (user?.grade?.rate || 5) / 100;
+      const rewardPoints = Math.floor(subtotal.toNumber() * currentRate);
+
+      // 이번 결제 후 예상 누적 구매 금액
+      const newTotalPayment = (user?.totalPayment || 0) + subtotal.toNumber();
+
+      // 누적액으로 다음 등급 결정
+      const nextGrade = await tx.grade.findFirst({
+        where: {
+          minAmount: { lte: newTotalPayment },
+        },
+        orderBy: {
+          minAmount: 'desc',
+        },
+      });
+
+      // DB 유저 등급 정보 업데이트
+      await tx.user.update({
+        where: { id: userId },
+        data: {
+          points: { increment: rewardPoints },
+          totalPayment: { increment: subtotal.toNumber() },
+          gradeid: nextGrade?.id || user?.gradeid || 'grade_green',
+        },
+        select: {
+          totalPayment: true,
+          points: true,
+          grade: { select: { name: true } },
+        },
+      });
 
       // 9) 응답 매핑(사이즈 라벨 EN 강제)
       const full = await tx.order.findUnique({

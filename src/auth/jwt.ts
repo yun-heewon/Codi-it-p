@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { JwtPayload } from 'jsonwebtoken';
 import { UserType } from '@prisma/client';
 import { UnauthorizedException } from '@nestjs/common';
-import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from 'src/common/constants';
+import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../common/constants';
 
 export interface AccessTokenPayload extends JwtPayload {
   sub: string;

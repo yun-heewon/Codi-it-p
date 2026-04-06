@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { SalesStatsDto } from './dtos/stats.dto';
 import { TopSalesItemDto } from './dtos/top-sales-item.dto';
 import { PriceRangeItemDto } from './dtos/price-range-item.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Decimal } from '@prisma/client/runtime/client';
 
 // type TopItemResult = {

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Cart, Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CartItemDto } from './dtos/cart-item.dto';
 
 // CartItem 쿼리에서 사용되는 공통 include 옵션

@@ -3,13 +3,13 @@ import { S3Client } from '@aws-sdk/client-s3';
 import multerS3 from 'multer-s3';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { Request } from 'express';
 import {
   AWS_ACCESS_KEY_ID,
   AWS_BUCKET_NAME,
   AWS_REGION,
   AWS_SECRET_ACCESS_KEY,
-} from 'src/common/constants';
-import { Request } from 'express';
+} from '../../constants';
 
 // 사용 가능한 파일 타입
 const ALLOWED_MIME_TYPES = [

@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { ProductRepository } from './product.repository';
-import { NotificationModule } from 'src/notification/notification.module';
-import { StoreModule } from 'src/stores/store.module';
+import { NotificationModule } from '../notification/notification.module';
+import { StoreModule } from '../stores/store.module';
 
 @Module({
   imports: [NotificationModule, StoreModule],
