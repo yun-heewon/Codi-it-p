@@ -6,8 +6,12 @@ import { PrismaService } from '../prisma/prisma.service';
 export class NotificationRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createNotification(data: Prisma.NotificationCreateInput) {
-    return this.prisma.notification.create({
+  async createNotification(
+    data: Prisma.NotificationCreateInput,
+    tx?: Prisma.TransactionClient,
+  ) {
+    const client = tx ?? this.prisma;
+    return client.notification.create({
       data,
     });
   }

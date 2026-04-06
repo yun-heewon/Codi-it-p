@@ -9,5 +9,6 @@ import { StoreModule } from '../stores/store.module';
   imports: [NotificationModule, StoreModule],
   controllers: [ProductController],
   providers: [ProductService, ProductRepository],
+  exports: [ProductRepository],
 })
 export class ProductModule {}

@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, PaymentStatus } from '@prisma/client';
+import { Prisma, PaymentStatus, NotificationType } from '@prisma/client';
 import { CreateOrderDto } from './dtos/create-order.dto';
 import { UpdateOrderDto } from './dtos/update-order.dto';
 import { FrontOrder } from './dtos/front-order.dto';
 import { FrontOrderListResponse } from './dtos/front-order-list-response.dto';
 import { StoreRepository } from '../stores/store.repository';
+import { NotificationService } from '../notification/notification.service';
+import { ProductRepository } from '../products/product.repository';
 
 const D = Prisma.Decimal;
 
@@ -113,6 +115,8 @@ export class OrderRepository {
   constructor(
     private readonly prisma: PrismaService,
     private readonly storeRepository: StoreRepository,
+    private readonly notificationService: NotificationService,
+    private readonly productRepository: ProductRepository,
   ) {}
 
   /**
@@ -297,6 +301,47 @@ export class OrderRepository {
           where: { id: { in: soldOutIds } },
           data: { isSoldOut: true },
         });
+      }
+
+      // 7-1 품절 알림 발송 로직
+      for (const productId of soldOutIds) {
+        const product = await tx.product.findUnique({
+          where: { id: productId },
+          select: {
+            name: true,
+            store: { select: { userId: true } },
+          },
+        });
+
+        if (!product) continue;
+
+        // 판매자 알림
+        const sellerId = product.store.userId;
+        await this.notificationService.createAndSendNotification(
+          sellerId,
+          {
+            content: `상품 "${product.name}"이(가) 품절되었습니다.`,
+            type: NotificationType.SELLER_SOLD_OUT,
+          },
+          tx,
+        );
+
+        // 구매자 알림
+        const usersToNotify =
+          await this.productRepository.findUsersWithProductInCart(
+            productId,
+            tx,
+          );
+        for (const buyerId of usersToNotify) {
+          await this.notificationService.createAndSendNotification(
+            buyerId,
+            {
+              content: `상품 "${product.name}"이(가) 품절되었습니다.`,
+              type: NotificationType.BUYER_SOLD_OUT,
+            },
+            tx,
+          );
+        }
       }
 
       // 8) 가상 결제(전액 포인트 → 0원)

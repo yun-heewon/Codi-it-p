@@ -4,6 +4,8 @@ import { NotificationResponseDto } from './dtos/response.dto';
 import { plainToInstance } from 'class-transformer';
 import { CreateNotificationDto } from './dtos/create.dto';
 import { Response } from 'express';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 interface SseResponse extends Response {
   flush?: () => void;
@@ -15,6 +17,7 @@ export class NotificationService {
 
   constructor(
     private readonly notificationRepository: NotificationRepository,
+    private readonly prisma: PrismaService,
   ) {}
 
   addClient(userId: string, res: SseResponse): () => void {
@@ -32,19 +35,26 @@ export class NotificationService {
     };
   }
 
-  async createAndSendNotification(userId: string, dto: CreateNotificationDto) {
+  async createAndSendNotification(
+    userId: string,
+    dto: CreateNotificationDto,
+    tx?: Prisma.TransactionClient,
+  ) {
     try {
       const newNotification =
-        await this.notificationRepository.createNotification({
-          user: {
-            connect: {
-              id: userId,
+        await this.notificationRepository.createNotification(
+          {
+            user: {
+              connect: {
+                id: userId,
+              },
             },
+            type: dto.type,
+            content: dto.content,
+            size: dto.size,
           },
-          type: dto.type,
-          content: dto.content,
-          size: dto.size,
-        });
+          tx,
+        );
 
       const client = this.clients.get(userId);
 
@@ -75,6 +85,7 @@ export class NotificationService {
         `[FATAL NOTIF ERROR] DB or Push failed for User ${userId}:`,
         error,
       );
+      if (tx) throw error;
       return null;
     }
   }

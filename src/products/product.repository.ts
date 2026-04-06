@@ -184,4 +184,18 @@ export class ProductRepository {
     });
     return product?.store?.userId || null;
   }
+
+  async findUsersWithProductInCart(
+    productId: string,
+    tx?: Prisma.TransactionClient,
+  ): Promise<string[]> {
+    const client = tx ?? this.prisma;
+    const carts = await client.cart.findMany({
+      where: { items: { some: { productId } } },
+      select: { buyerId: true },
+      distinct: ['buyerId'],
+    });
+
+    return carts.map((cart) => cart.buyerId);
+  }
 }
