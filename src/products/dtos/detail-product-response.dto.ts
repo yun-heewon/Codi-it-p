@@ -14,88 +14,88 @@ import { ReviewDto } from './review.dto';
 export class DetailProductResponse {
   @Expose()
   @IsString()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
-  name: string;
+  name!: string;
 
   @Expose()
   @IsString()
-  image: string;
+  image!: string;
 
   @Expose()
   @IsString()
-  content: string;
+  content!: string;
 
   @Expose()
   @IsDateString()
-  createdAt: string;
+  createdAt!: string;
 
   @Expose()
   @IsDateString()
-  updatedAt: string;
+  updatedAt!: string;
 
   @Expose()
   @IsNumber()
-  reviewsRating: number;
+  reviewsRating!: number;
 
   @Expose()
   @IsString()
-  storeId: string;
+  storeId!: string;
 
   @Expose()
   @IsString()
-  storeName: string;
+  storeName!: string;
 
   @Expose()
   @IsNumber()
-  price: number;
+  price!: number;
 
   @Expose()
   @IsNumber()
-  discountPrice: number;
+  discountPrice!: number | null;
 
   @Expose()
   @IsNumber()
-  discountRate: number;
+  discountRate!: number | null;
 
   @Expose()
   @IsOptional()
   @IsDateString()
-  discountStartTime: string | null;
+  discountStartTime!: string | null;
 
   @Expose()
   @IsOptional()
   @IsDateString()
-  discountEndTime: string | null;
+  discountEndTime!: string | null;
 
   @Expose()
   @IsNumber()
-  reviewsCount: number;
+  reviewsCount!: number;
 
   @Expose()
   @ValidateNested({ each: true })
   @Type(() => ReviewDto)
-  reviews: ReviewDto;
+  reviews!: ReviewDto;
 
   @Expose()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => DetailInquiry)
-  inquiries: DetailInquiry[];
+  inquiries!: DetailInquiry[];
 
   // 중첩 단일 객체 처리
   @Expose()
   @ValidateNested()
   @Type(() => CategoryResponse)
-  category: CategoryResponse;
+  category!: CategoryResponse;
 
   @Expose()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => StockResponse)
-  stocks: StockResponse[];
+  stocks!: StockResponse[];
 
   constructor(partial: Partial<DetailProductResponse>) {
     Object.assign(this, partial);
@@ -113,9 +113,6 @@ export class DetailProductResponse {
       const cleanFileName = this.image.replace(/^\//, ''); // 앞에 있는 / 제거
 
       this.image = `${cleanBaseUrl}/${cleanFileName}`;
-
-      // ✅ 진짜 최종 주소가 어떻게 만들어졌는지 터미널에 찍어보세요!
-      console.log('🚀 [최종 이미지 URL 확인]:', this.image);
     }
   }
 }

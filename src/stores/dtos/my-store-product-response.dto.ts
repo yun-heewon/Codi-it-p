@@ -7,12 +7,12 @@ export class MyStoreProductResponseDto {
   @ValidateNested({ each: true })
   @Type(() => ProductResponseDto)
   @Expose()
-  list: ProductResponseDto[];
+  list!: ProductResponseDto[];
 
   @IsInt()
   @IsNotEmpty()
   @Expose()
-  totalCount: number;
+  totalCount!: number;
 
   constructor(partial: Partial<MyStoreProductResponseDto>) {
     Object.assign(this, partial);

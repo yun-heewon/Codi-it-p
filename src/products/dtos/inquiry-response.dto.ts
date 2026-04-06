@@ -25,43 +25,43 @@ export class InquiryResponse {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  userId: string;
+  userId!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  productId: string;
+  productId!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  content: string;
+  content!: string;
 
   @Expose()
   @IsEnum(InquiryStatus)
-  status: InquiryStatus;
+  status!: InquiryStatus;
 
   @Expose()
   @IsBoolean()
-  isSecret: boolean;
+  isSecret!: boolean;
 
   @Expose()
   @IsDate()
-  createdAt: Date;
+  createdAt!: Date;
 
   @Expose()
   @IsDate()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   constructor(partial: Partial<InquiryResponse>) {
     Object.assign(this, partial);

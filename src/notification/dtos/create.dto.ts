@@ -4,11 +4,11 @@ import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateNotificationDto {
   @IsNotEmpty()
   @IsString()
-  content: string;
+  content!: string;
 
   @IsNotEmpty()
   @IsEnum(NotificationType)
-  type: NotificationType;
+  type!: NotificationType;
 
   @IsOptional()
   @IsString()

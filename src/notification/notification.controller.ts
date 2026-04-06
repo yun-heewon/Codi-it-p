@@ -34,8 +34,6 @@ export class NotificationController {
   @Get('sse')
   sseConnect(@GetUser('id') userId: string, @Res() res: Response) {
     {
-      console.log(`[SSE 연결 시도] 유저 ID: ${userId}`);
-
       const sseRes = res as SseResponse;
 
       if (!userId) {
@@ -74,7 +72,6 @@ export class NotificationController {
       res.on('close', () => {
         clearInterval(pingInterval);
         removeClient();
-        console.log(`[SSE] 유저 ${userId} 연결 종료`);
       });
     }
   }

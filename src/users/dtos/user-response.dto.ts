@@ -1,22 +1,22 @@
 import { Expose } from 'class-transformer';
 
 export class GradeResponseDto {
-  @Expose() id: string;
-  @Expose() name: string;
-  @Expose() rate: number;
-  @Expose() minAmount: number;
+  @Expose() id!: string;
+  @Expose() name!: string;
+  @Expose() rate!: number;
+  @Expose() minAmount!: number;
 }
 
 export class UserResponseDto {
-  @Expose() id: string;
-  @Expose() name: string;
-  @Expose() email: string;
+  @Expose() id!: string;
+  @Expose() name!: string;
+  @Expose() email!: string;
   @Expose() type: any;
-  @Expose() points: number | null;
-  @Expose() createdAt: Date;
-  @Expose() updatedAt: Date;
-  @Expose() grade: any;
-  @Expose() image: string | null;
+  @Expose() points!: number | null;
+  @Expose() createdAt!: Date;
+  @Expose() updatedAt!: Date;
+  @Expose() grade!: any;
+  @Expose() image!: string | null;
 
   constructor(partial: Partial<any>) {
     Object.assign(this, partial);

@@ -5,10 +5,10 @@ export class ChangeRateDto {
   @IsNotEmpty()
   @IsNumber()
   @Expose()
-  totalOrders: number;
+  totalOrders!: number;
 
   @IsNotEmpty()
   @IsNumber()
   @Expose()
-  totalSales: number;
+  totalSales!: number;
 }

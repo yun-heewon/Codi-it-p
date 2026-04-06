@@ -2,14 +2,14 @@ import { Expose } from 'class-transformer';
 
 export class OrderPaginationMetaDto {
   @Expose()
-  total: number;
+  total!: number;
 
   @Expose()
-  page: number;
+  page!: number;
 
   @Expose()
-  limit: number;
+  limit!: number;
 
   @Expose()
-  totalPages: number;
+  totalPages!: number;
 }

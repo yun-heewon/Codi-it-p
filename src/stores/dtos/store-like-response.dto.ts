@@ -6,12 +6,12 @@ export class StoreLikeResponseDto {
   @IsString()
   @IsNotEmpty()
   @Expose()
-  type: string;
+  type!: string;
 
   @ValidateNested()
   @Type(() => StoreResponseDto)
   @Expose()
-  store: StoreResponseDto | null;
+  store!: StoreResponseDto | null;
 
   constructor(partial: Partial<StoreLikeResponseDto>) {
     Object.assign(this, partial);

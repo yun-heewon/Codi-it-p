@@ -33,8 +33,8 @@ export enum CategoryType {
 }
 
 export class CategoryResponse {
-  id: string;
-  name: CategoryType;
+  id!: string;
+  name!: CategoryType;
 }
 
 interface StockSize {
@@ -50,21 +50,21 @@ export interface Stock {
 }
 
 export class InquiryReply {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: { id: string; name: string };
+  id!: string;
+  content!: string;
+  createdAt!: string;
+  updatedAt!: string;
+  user!: { id: string; name: string };
 }
 
 export class DetailInquiry {
-  id: string;
-  title: string;
-  content: string;
-  status: string;
-  isSecret: boolean;
-  createdAt: string;
-  updatedAt: string;
+  id!: string;
+  title!: string;
+  content!: string;
+  status!: string;
+  isSecret!: boolean;
+  createdAt!: string;
+  updatedAt!: string;
   reply?: InquiryReply | null;
 }
 

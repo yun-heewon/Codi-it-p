@@ -10,24 +10,24 @@ import {
 export class ProductInfoDto {
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id!: string;
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name!: string;
 
   @IsNotEmpty()
   @IsDecimal()
-  price: number;
+  price!: number;
 }
 
 export class TopSalesItemDto {
   @IsNotEmpty()
   @IsNumber()
-  totalOrders: number;
+  totalOrders!: number;
 
   @Type(() => ProductInfoDto)
   @ValidateNested()
   @IsNotEmpty()
-  products: ProductInfoDto;
+  products!: ProductInfoDto;
 }

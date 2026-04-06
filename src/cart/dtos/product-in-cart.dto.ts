@@ -15,19 +15,19 @@ export interface StockInCartDto {
 }
 
 export class ProductInCartDto {
-  @Expose() id: string;
-  @Expose() storeId: string;
-  @Expose() storeName: string;
-  @Expose() name: string;
-  @Expose() image: string;
-  @Expose() price: number;
-  @Expose() discountRate: number | null;
-  @Expose() discountStartTime: string | null;
-  @Expose() discountEndTime: string | null;
-  @Expose() isSoldOut: boolean;
+  @Expose() id!: string;
+  @Expose() storeId!: string;
+  @Expose() storeName!: string;
+  @Expose() name!: string;
+  @Expose() image!: string;
+  @Expose() price!: number;
+  @Expose() discountRate!: number | null;
+  @Expose() discountStartTime!: string | null;
+  @Expose() discountEndTime!: string | null;
+  @Expose() isSoldOut!: boolean;
 
-  @Expose() stocks: StockInCartDto[];
-  @Expose() store: StoreInCartDto;
+  @Expose() stocks!: StockInCartDto[];
+  @Expose() store!: StoreInCartDto;
 
   constructor(partial: Partial<ProductInCartDto>) {
     Object.assign(this, partial);

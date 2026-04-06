@@ -3,13 +3,13 @@ import { IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class PriceRangeItemDto {
   @IsNotEmpty()
   @IsString()
-  priceRange: string;
+  priceRange!: string;
 
   @IsNotEmpty()
   @IsDecimal()
-  totalSales: number;
+  totalSales!: number;
 
   @IsNotEmpty()
   @IsNumber()
-  percentage: number;
+  percentage!: number;
 }

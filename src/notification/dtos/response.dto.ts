@@ -5,32 +5,32 @@ export class NotificationResponseDto {
   @IsNotEmpty()
   @IsString()
   @Expose()
-  id: string;
+  id!: string;
 
   @IsNotEmpty()
   @IsString()
   @Expose()
-  userId: string;
+  userId!: string;
 
   @IsNotEmpty()
   @IsString()
   @Expose()
-  content: string;
+  content!: string;
 
   @IsNotEmpty()
   @IsBoolean()
   @Expose()
-  isChecked: boolean;
+  isChecked!: boolean;
 
   @IsDateString()
   @IsNotEmpty()
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   @IsDateString()
   @IsNotEmpty()
   @Expose()
-  updatedAt: string;
+  updatedAt!: string;
 
   constructor(partial: Partial<NotificationResponseDto>) {
     Object.assign(this, partial);

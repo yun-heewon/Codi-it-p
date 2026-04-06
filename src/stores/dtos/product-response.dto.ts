@@ -12,40 +12,40 @@ export class ProductResponseDto {
   @IsString()
   @IsNotEmpty()
   @Expose()
-  id: string;
+  id!: string;
 
   @IsString()
   @IsUrl()
   @Expose()
-  image: string;
+  image!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  name: string;
+  name!: string;
 
   @IsNotEmpty()
   @Type(() => Number)
   @Expose()
-  price: number;
+  price!: number;
 
   @IsInt()
   @IsNotEmpty()
   @Expose()
-  stock: number;
+  stock!: number;
 
   @IsBoolean()
   @Expose()
-  isDiscount: boolean;
+  isDiscount!: boolean;
 
   @IsDateString()
   @IsNotEmpty()
   @Expose()
-  createdAt: Date;
+  createdAt!: Date;
 
   @IsBoolean()
   @Expose()
-  isSoldOut: boolean;
+  isSoldOut!: boolean;
 
   constructor(partial: Partial<ProductResponseDto>) {
     Object.assign(this, partial);

@@ -4,14 +4,14 @@ import { IsNotEmpty, IsOptional, IsString, IsBoolean } from 'class-validator';
 export class CreateInquiryDto {
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @IsString()
   @IsNotEmpty()
-  content: string;
+  content!: string;
 
   @IsBoolean()
   @IsOptional()
   @Transform(({ value }) => value === 'true' || value === true)
-  isSecret: boolean;
+  isSecret!: boolean;
 }

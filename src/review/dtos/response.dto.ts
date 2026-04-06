@@ -2,25 +2,25 @@ import { Expose } from 'class-transformer';
 
 export class ReviewResponseDto {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  userId: string;
+  userId!: string;
 
   @Expose()
-  productId: string;
+  productId!: string;
 
   @Expose()
-  rating: number;
+  rating!: number;
 
   @Expose()
-  content: string;
+  content!: string;
 
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   @Expose()
-  updatedAt: string;
+  updatedAt!: string;
 
   constructor(partial: Record<string, any>) {
     Object.assign(this, partial);

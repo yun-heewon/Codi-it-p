@@ -2,8 +2,8 @@ import { IsInt } from 'class-validator';
 
 export class StocksDto {
   @IsInt()
-  sizeId: number;
+  sizeId!: number;
 
   @IsInt()
-  quantity: number;
+  quantity!: number;
 }

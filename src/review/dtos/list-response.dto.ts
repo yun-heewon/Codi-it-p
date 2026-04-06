@@ -2,30 +2,30 @@ import { Expose, Type } from 'class-transformer';
 
 export class ItemDto {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  userId: string;
+  userId!: string;
 
   @Expose()
-  productId: string;
+  productId!: string;
 
   @Expose()
-  orderItemId: string;
+  orderItemId!: string;
 
   @Expose()
-  rating: number;
+  rating!: number;
 
   @Expose()
-  content: string;
-
-  @Expose()
-  @Type(() => String)
-  createdAt: string;
+  content!: string;
 
   @Expose()
   @Type(() => String)
-  updatedAt: string;
+  createdAt!: string;
+
+  @Expose()
+  @Type(() => String)
+  updatedAt!: string;
 
   constructor(partial: Record<string, any>) {
     Object.assign(this, partial);
@@ -39,16 +39,16 @@ export class ItemDto {
 
 export class MetaDto {
   @Expose()
-  total: number;
+  total!: number;
 
   @Expose()
-  page: number;
+  page!: number;
 
   @Expose()
-  limit: number;
+  limit!: number;
 
   @Expose()
-  hasNextPage: boolean;
+  hasNextPage!: boolean;
 
   constructor(partial: Partial<MetaDto>) {
     Object.assign(this, partial);

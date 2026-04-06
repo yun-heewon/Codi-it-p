@@ -19,7 +19,7 @@ export class UpdateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  currentPassword: string;
+  currentPassword!: string;
 
   @IsOptional()
   @IsString()

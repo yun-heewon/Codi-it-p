@@ -2,7 +2,7 @@ import { CartItemDto } from './cart-item.dto';
 import { CartDto } from './cart.dto';
 
 export class CartItemDetailDto extends CartItemDto {
-  cart: CartDto;
+  cart!: CartDto;
 
   constructor(partial: Partial<CartItemDetailDto>) {
     super(partial);

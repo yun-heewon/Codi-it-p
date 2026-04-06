@@ -18,7 +18,7 @@ export class InquiryUser {
 
   @Expose()
   @IsString()
-  name: string;
+  name!: string;
 
   constructor(partial: Partial<InquiryUser>) {
     Object.assign(this, partial);
@@ -29,7 +29,7 @@ export class InquiryReplyResponse {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
@@ -42,20 +42,20 @@ export class InquiryReplyResponse {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  content: string;
+  content!: string;
 
   @Expose()
   @IsDate()
-  createdAt: Date;
+  createdAt!: Date;
 
   @Expose()
   @IsDate()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @Expose()
   @ValidateNested()
   @Type(() => InquiryUser)
-  user: InquiryUser;
+  user!: InquiryUser;
 
   constructor(partial: Partial<InquiryReplyResponse>) {
     Object.assign(this, partial);
@@ -65,52 +65,52 @@ export class InquiryReplyResponse {
 export class InquiriesResponse {
   @Expose()
   @IsString()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
-  userId: string;
+  userId!: string;
 
   @Expose()
   @IsString()
-  productId: string;
+  productId!: string;
 
   @Expose()
   @IsString()
-  title: string;
+  title!: string;
 
   @Expose()
   @IsString()
-  content: string;
+  content!: string;
 
   @Expose()
   @IsEnum(InquiryStatus)
-  status: InquiryStatus;
+  status!: InquiryStatus;
 
   @Expose()
   @IsBoolean()
-  isSecret: boolean;
+  isSecret!: boolean;
 
   @Expose()
   @IsDate()
-  createdAt: Date;
+  createdAt!: Date;
 
   @Expose()
   @IsDate()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   // 작성자 정보 (중첩 객체)
   @Expose()
   @ValidateNested()
   @Type(() => InquiryUser)
-  user: InquiryUser;
+  user!: InquiryUser;
 
   // 답변 정보 (null 허용 및 중첩 객체)
   @Expose()
   @IsOptional()
   @ValidateNested()
   @Type(() => InquiryReplyResponse)
-  reply: InquiryReplyResponse | null;
+  reply!: InquiryReplyResponse | null;
 
   constructor(partial: Partial<InquiriesResponse>) {
     Object.assign(this, partial);

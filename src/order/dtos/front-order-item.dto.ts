@@ -2,16 +2,16 @@ import { Expose, Type } from 'class-transformer';
 
 export class FrontReview {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  rating: number;
+  rating!: number;
 
   @Expose()
-  content: string;
+  content!: string;
 
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   constructor(partial: Record<string, any>) {
     Object.assign(this, partial);
@@ -23,7 +23,7 @@ export class FrontReview {
 
 export class FrontProduct {
   @Expose()
-  name: string;
+  name!: string;
 
   @Expose()
   image?: string;
@@ -60,23 +60,23 @@ export class FrontProduct {
 
 export class FrontOrderItem {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  price: number;
+  price!: number;
 
   @Expose()
-  quantity: number;
+  quantity!: number;
 
   @Expose()
-  isReviewed: boolean;
+  isReviewed!: boolean;
 
   @Expose()
-  productId: string;
+  productId!: string;
 
   @Expose()
   @Type(() => FrontProduct)
-  product: FrontProduct;
+  product!: FrontProduct;
 
   @Expose()
   size: { size: { en: string; ko: string } };

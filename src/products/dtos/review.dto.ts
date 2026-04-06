@@ -5,32 +5,32 @@ export class ReviewDto {
   @Expose()
   @IsInt()
   @Min(0)
-  rate1Length: number;
+  rate1Length!: number | null;
 
   @Expose()
   @IsInt()
   @Min(0)
-  rate2Length: number;
+  rate2Length!: number | null;
 
   @Expose()
   @IsInt()
   @Min(0)
-  rate3Length: number;
+  rate3Length!: number | null;
 
   @Expose()
   @IsInt()
   @Min(0)
-  rate4Length: number;
+  rate4Length!: number | null;
 
   @Expose()
   @IsInt()
   @Min(0)
-  rate5Length: number;
+  rate5Length!: number | null;
 
   @Expose()
   @IsNumber()
   @Min(0)
-  sumScore: number;
+  sumScore!: number | null;
 
   constructor(partial: Partial<ReviewDto>) {
     Object.assign(this, partial);

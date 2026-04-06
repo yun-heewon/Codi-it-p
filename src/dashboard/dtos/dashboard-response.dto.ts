@@ -8,32 +8,32 @@ export class DashboardResponseDto {
   @Type(() => PeriodSummaryDto)
   @ValidateNested()
   @IsNotEmpty()
-  today: PeriodSummaryDto;
+  today!: PeriodSummaryDto;
 
   @Type(() => PeriodSummaryDto)
   @ValidateNested()
   @IsNotEmpty()
-  week: PeriodSummaryDto;
+  week!: PeriodSummaryDto;
 
   @Type(() => PeriodSummaryDto)
   @ValidateNested()
   @IsNotEmpty()
-  month: PeriodSummaryDto;
+  month!: PeriodSummaryDto;
 
   @Type(() => PeriodSummaryDto)
   @ValidateNested()
   @IsNotEmpty()
-  year: PeriodSummaryDto;
+  year!: PeriodSummaryDto;
 
   @Type(() => TopSalesItemDto)
   @ValidateNested({ each: true })
   @IsNotEmpty()
-  topSales: TopSalesItemDto[];
+  topSales!: TopSalesItemDto[];
 
   @Type(() => PriceRangeItemDto)
   @ValidateNested({ each: true })
   @IsNotEmpty()
-  priceRange: PriceRangeItemDto[];
+  priceRange!: PriceRangeItemDto[];
 
   constructor(partial: Partial<DashboardResponseDto>) {
     Object.assign(this, partial);

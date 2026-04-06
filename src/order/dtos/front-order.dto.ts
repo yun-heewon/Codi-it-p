@@ -4,16 +4,16 @@ import { Expose, Type } from 'class-transformer';
 
 export class FrontPayment {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  price: number;
+  price!: number;
 
   @Expose()
-  status: PaymentStatus;
+  status!: PaymentStatus;
 
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   constructor(partial: Record<string, any>) {
     Object.assign(this, partial);
@@ -30,28 +30,28 @@ export class FrontPayment {
 
 export class FrontOrder {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  name: string;
+  name!: string;
 
   @Expose()
-  address: string;
+  address!: string;
 
   @Expose()
-  phoneNumber: string;
+  phoneNumber!: string;
 
   @Expose()
-  subtotal: number;
+  subtotal!: number;
 
   @Expose()
-  totalQuantity: number;
+  totalQuantity!: number;
 
   @Expose()
-  usePoint: number;
+  usePoint!: number;
 
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   @Expose()
   @Type(() => FrontOrderItem)

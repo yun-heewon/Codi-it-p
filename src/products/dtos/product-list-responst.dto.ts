@@ -1,22 +1,22 @@
 import { Expose, Type } from 'class-transformer';
 
 export class ProductListDto {
-  @Expose() id: string;
-  @Expose() storeId: string;
-  @Expose() storeName: string;
-  @Expose() name: string;
-  @Expose() image: string;
-  @Expose() price: number;
-  @Expose() discountPrice: number;
-  @Expose() discountRate: number;
-  @Expose() discountStartTime?: Date | null;
-  @Expose() discountEndTime?: Date | null;
-  @Expose() reviewsCount: number;
-  @Expose() reviewsRating: number;
-  @Expose() createdAt: string;
-  @Expose() updatedAt: string;
-  @Expose() sales: number;
-  @Expose() isSoldOut: boolean;
+  @Expose() id!: string;
+  @Expose() storeId!: string;
+  @Expose() storeName!: string;
+  @Expose() name!: string;
+  @Expose() image!: string;
+  @Expose() price!: number;
+  @Expose() discountPrice!: number | null;
+  @Expose() discountRate!: number | null;
+  @Expose() discountStartTime!: Date | null;
+  @Expose() discountEndTime!: Date | null;
+  @Expose() reviewsCount!: number;
+  @Expose() reviewsRating!: number | null;
+  @Expose() createdAt!: string;
+  @Expose() updatedAt!: string;
+  @Expose() sales!: number;
+  @Expose() isSoldOut!: boolean;
 
   constructor(partial: Partial<ProductListDto>) {
     // 1. 기본 데이터 할당

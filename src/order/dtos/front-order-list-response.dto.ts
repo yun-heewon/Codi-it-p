@@ -5,7 +5,7 @@ import { FrontOrderDto } from './front-response.dto';
 export class FrontOrderListResponse {
   @Expose()
   @Type(() => FrontOrderDto)
-  data: FrontOrder[];
+  data!: FrontOrder[];
 
   @Expose()
   meta!: { total: number; page: number; limit: number; totalPages: number };

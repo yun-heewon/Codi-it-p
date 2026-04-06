@@ -11,47 +11,47 @@ export class StoreResponseDto {
   @IsString()
   @IsNotEmpty()
   @Expose()
-  id: string;
+  id!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  name: string;
+  name!: string;
 
   @IsDateString()
   @IsNotEmpty()
   @Expose()
-  createdAt: Date;
+  createdAt!: Date;
 
   @IsDateString()
   @IsNotEmpty()
   @Expose()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  userId: string;
+  userId!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  address: string;
+  address!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  detailAddress: string;
+  detailAddress!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  phoneNumber: string;
+  phoneNumber!: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  content: string;
+  content!: string;
 
   @IsOptional()
   @IsString()

@@ -8,17 +8,17 @@ export class PeriodSummaryDto {
   @ValidateNested()
   @IsNotEmpty()
   @Expose()
-  current: SalesStatsDto;
+  current!: SalesStatsDto;
 
   @Type(() => SalesStatsDto)
   @ValidateNested()
   @IsNotEmpty()
   @Expose()
-  previous: SalesStatsDto;
+  previous!: SalesStatsDto;
 
   @Type(() => ChangeRateDto)
   @ValidateNested()
   @IsNotEmpty()
   @Expose()
-  changeRate: ChangeRateDto;
+  changeRate!: ChangeRateDto;
 }

@@ -6,17 +6,17 @@ export class MyStoreResponseDto extends DetailResponseDto {
   @IsNumber()
   @IsNotEmpty()
   @Expose()
-  productCount: number;
+  productCount!: number;
 
   @IsNumber()
   @IsNotEmpty()
   @Expose()
-  monthFavoriteCount: number;
+  monthFavoriteCount!: number;
 
   @IsNumber()
   @IsNotEmpty()
   @Expose()
-  totalSoldCount: number;
+  totalSoldCount!: number;
 
   constructor(partial: Partial<MyStoreResponseDto>) {
     super(partial);

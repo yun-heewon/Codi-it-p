@@ -1,5 +1,4 @@
 import { InquiryStatus } from '@prisma/client';
-import { InquiryUser } from 'src/products/dtos/inquiries-response.dto';
 import { Expose, Type } from 'class-transformer';
 import {
   IsString,
@@ -11,17 +10,18 @@ import {
   IsArray,
   IsNumber,
 } from 'class-validator';
+import { InquiryUser } from '../../products/dtos/inquiries-response.dto';
 
 export class InquiryStoreDto {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   constructor(partial: Partial<InquiryStoreDto>) {
     Object.assign(this, partial);
@@ -32,22 +32,22 @@ export class InquiryProductDto {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  image: string;
+  image!: string;
 
   @Expose()
   @ValidateNested()
   @Type(() => InquiryStoreDto)
-  store: InquiryStoreDto;
+  store!: InquiryStoreDto;
 
   constructor(partial: Partial<InquiryProductDto>) {
     Object.assign(this, partial);
@@ -68,39 +68,39 @@ export class InquiryItemDto {
   @Expose()
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id!: string;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @Expose()
   @IsBoolean()
-  isSecret: boolean;
+  isSecret!: boolean;
 
   @Expose()
   @IsEnum(InquiryStatus)
-  status: InquiryStatus;
+  status!: InquiryStatus;
 
   @Expose()
   @IsString()
   @IsNotEmpty()
-  content: string;
+  content!: string;
 
   @Expose()
   @IsDate()
-  createdAt: Date;
+  createdAt!: Date;
 
   @Expose()
   @ValidateNested()
   @Type(() => InquiryProductDto)
-  product: InquiryProductDto;
+  product!: InquiryProductDto;
 
   @Expose()
   @ValidateNested()
   @Type(() => InquiryUser)
-  user: InquiryUser;
+  user!: InquiryUser;
 
   constructor(partial: Partial<InquiryItemDto>) {
     Object.assign(this, partial);
@@ -112,11 +112,11 @@ export class InquiryList {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => InquiryItemDto)
-  list: InquiryItemDto[];
+  list!: InquiryItemDto[];
 
   @Expose()
   @IsNumber()
-  totalCount: number;
+  totalCount!: number;
 
   constructor(partial: Partial<InquiryList>) {
     Object.assign(this, partial);

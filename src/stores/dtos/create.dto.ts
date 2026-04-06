@@ -10,26 +10,26 @@ export class CreateStoreDto {
   @IsNotEmpty()
   @IsString()
   @Length(1, 50)
-  name: string;
+  name!: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(1, 225)
-  address: string;
+  address!: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(1, 225)
-  detailAddress: string;
+  detailAddress!: string;
 
   @IsNotEmpty()
   @IsPhoneNumber('KR')
   @Length(1, 20)
-  phoneNumber: string;
+  phoneNumber!: string;
 
   @IsNotEmpty()
   @IsString()
-  content: string;
+  content!: string;
 
   @IsOptional()
   @IsString()

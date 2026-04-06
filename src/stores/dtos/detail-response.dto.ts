@@ -6,7 +6,7 @@ export class DetailResponseDto extends StoreResponseDto {
   @IsNumber()
   @IsNotEmpty()
   @Expose()
-  favoriteCount: number;
+  favoriteCount!: number;
 
   constructor(partial: Partial<DetailResponseDto>) {
     super(partial);
