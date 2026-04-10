@@ -55,6 +55,7 @@ export class InquiryController {
 
   // 문의 상세 조회
   @Get(':inquiryId')
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
   async getDetailInquiry(
