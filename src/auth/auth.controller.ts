@@ -11,7 +11,6 @@ import {
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { type Response, type Request } from 'express';
-import { COOKIE_SAMESITE, COOKIE_SECURE } from '../common/constants';
 
 @Controller('auth')
 export class AuthController {
@@ -29,9 +28,10 @@ export class AuthController {
     // 토큰을 쿠키에 저장
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: COOKIE_SECURE,
-      sameSite: COOKIE_SAMESITE as 'lax' | 'strict' | 'none',
+      secure: process.env.COOKIE_SECURE === 'true',
+      sameSite: (process.env.COOKIE_SAMESITE as 'none') || 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
     });
 
     return {
@@ -59,9 +59,10 @@ export class AuthController {
     // 새 RefreshToken을 쿠키에 저장
     res.cookie('refreshToken', response.refreshToken, {
       httpOnly: true,
-      secure: COOKIE_SECURE,
-      sameSite: COOKIE_SAMESITE as 'lax' | 'strict' | 'none',
+      secure: process.env.COOKIE_SECURE === 'true',
+      sameSite: (process.env.COOKIE_SAMESITE as 'none') || 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
     });
 
     return { accessToken: response.accessToken };
@@ -74,8 +75,10 @@ export class AuthController {
     // RefreshToken 쿠키 제거
     res.clearCookie('refreshToken', {
       httpOnly: true,
-      secure: COOKIE_SECURE,
-      sameSite: COOKIE_SAMESITE as 'lax' | 'strict' | 'none',
+      secure: process.env.COOKIE_SECURE === 'true',
+      sameSite: (process.env.COOKIE_SAMESITE as 'none') || 'none',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7일
+      path: '/',
     });
 
     return this.authService.logout();
