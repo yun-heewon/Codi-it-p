@@ -45,7 +45,7 @@ export class NotificationController {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
-        'Access-Control-Allow-Origin': 'http://localhost:3001', // 프론트 주소
+        'Access-Control-Allow-Origin': 'https://codi-it-web.vercel.app', // 프론트 주소
         'Access-Control-Allow-Credentials': 'true',
       });
 
