@@ -12,7 +12,16 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     maxAge: 86400,
-    allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
+    allowedHeaders: [
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'X-Requested-With',
+      'Cache-Control',
+      'Connection',
+      'Last-Event-ID',
+    ],
+    exposedHeaders: ['Set-Cookie'],
   });
   app.setGlobalPrefix('api');
 
