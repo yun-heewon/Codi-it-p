@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3001', // 프론트엔드 주소 허용
+    origin: process.env.FRONTEND_URL || 'https://codi-it-web.vercel.app', // 프론트엔드 주소 허용
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     maxAge: 86400,
