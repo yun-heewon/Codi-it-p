@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsNumber,
   IsBoolean,
+  IsDate,
 } from 'class-validator';
 import { plainToInstance, Transform, Type } from 'class-transformer';
 
@@ -33,12 +34,12 @@ export class UpdateProductDto {
   discountRate?: number;
 
   @IsOptional()
-  @IsString({ message: '할인 시작 날짜는 문자열이어야 합니다.' })
+  @IsDate({ message: '할인 시작 날짜는 유효한 날짜 형식이어야 합니다.' })
   @Type(() => Date)
   discountStartTime?: Date | null;
 
   @IsOptional()
-  @IsString({ message: '할인 종료 날짜는 문자열이어야 합니다.' })
+  @IsDate({ message: '할인 종료 날짜는 유효한 날짜 형식이어야 합니다.' })
   @Type(() => Date)
   discountEndTime?: Date | null;
 
