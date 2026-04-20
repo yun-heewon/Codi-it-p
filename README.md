@@ -1,98 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# CODI-IT 프로젝트
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**CODI-IT**은 패션 이커머스 환경에서 판매자와 구매자를 연결하는 **고급 패션 커머스 플랫폼**입니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+상품 등록부터 주문·결제·리뷰·알림·통계까지의 전 과정을 통합 관리할 수 있도록 설계되어,  
+판매자에게는 효율적인 매출 관리 환경을, 구매자에게는 직관적이고 즐거운 쇼핑 경험을 제공합니다.
 
-## Description
+<br>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 구현 홈페이지
 
-## Project setup
+**백엔드**: [https://codi-it-backend.site](https://codi-it.store/api)
 
-```bash
-$ npm install
-```
+**프론트엔드**: [https://codi-it-frontend.vercel.app](https://codi-it-web.vercel.app)
 
-## Compile and run the project
+<br>
 
-```bash
-# development
-$ npm run start
+### 주요 기능
 
-# watch mode
-$ npm run start:dev
+#### 인증
 
-# production mode
-$ npm run start:prod
-```
+1. 이메일 및 비밀번호 기반 로그인/로그아웃
 
-## Run tests
+2. 판매자와 구매자에 따라 접근 가능한 기능 구분
 
-```bash
-# unit tests
-$ npm run test
+3. JWT 토큰 재발급
 
-# e2e tests
-$ npm run test:e2e
+#### 회원
 
-# test coverage
-$ npm run test:cov
-```
+1. 판매자/구매자 유형 선택 회원가입
 
-## Deployment
+2. 개인정보 수정, 조회, 탈퇴
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+3. 관심 스토어 조회
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+#### 스토어
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+1. 판매자 전용 기능: 스토어 등록, 수정, 조회
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+2. 관심 스토어 등록 및 해제 기능
 
-## Resources
+3. 스토어별 상품, 판매량, 즐겨찾기 수 자동 연동
 
-Check out a few resources that may come in handy when working with NestJS:
+#### 상품
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+1. 상품 등록, 수정, 삭제, 조회
 
-## Support
+2. 카테고리·가격·사이즈·스토어·리뷰 기준 필터링 및 정렬
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+3. 할인율 및 기간 기반 프로모션 설정 가능
 
-## Stay in touch
+4. 상품별 사이즈 재고 및 판매량 자동 업데이트
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### 장바구니 / 결제
 
-## License
+1. 구매자는 상품을 장바구니에 추가하고 로그인 유지 시에도 저장됨
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+2. 주문 시 포인트 사용 가능
+
+3. 결제시 가상 결제 진행, 결제 완료 시 구매완료
+
+4. 품절 상품 주문 시 예외 처리
+
+#### 리뷰
+
+1. 구매한 상품에 별점, 내용을 추가하여 리뷰 등록 가능
+
+2. 리뷰 수정·삭제·조회 기능
+
+#### 문의
+
+1. 구매자 문의 등록 / 판매자 답변 기능
+
+2. 비밀글 옵션, 답변 여부 상태 표시
+
+#### 대시보드
+
+1. 판매자 전용 분석 화면
+
+2. 기간별 매출, 상품별 판매량, 가격대별 비중 등 데이터 시각화 제공
+
+#### 알림
+
+##### 실시간 이벤트 기반 알림
+
+1. 구매자: 품절 알림, 문의 답변 알림, 재입고 알림
+
+2. 판매자: 품절 상품 알림, 신규 문의 알림
+
+<br>
+
+## 기술 스택
+
+|     분류     | 사용 도구                          |
+| :----------: | ---------------------------------- |
+|  프레임워크  | Node.js (NestJs)                  |
+|     언어     | TypeScript                         |
+|  스키마/ORM  | Prisma                             |
+| 데이터베이스 | PostgreSQL                         |
+|  API 문서화  | swagger                            |
+| 실시간 알림  | SSE(Server-Sent Events)            |
+|  코드 품질   | ESLint + Prettier, class-validator |
+|     배포     | AWS EC2, S3, Nginx, PM2, RDS       |
+
+<br>
+
