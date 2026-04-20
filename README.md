@@ -104,3 +104,25 @@
 
 <br>
 
+## 프로젝트 파일 구조
+```
+📦 src
+ ├─ auth         # JWT 기반 인증 및 Guard (Strategy, Decorator)
+ ├─ users        # 사용자 관리 및 프로필 서비스
+ ├─ products     # 상품 조회, 등록 및 재고 관리
+ ├─ stores       # 입점 상점 관리 및 마이스토어 기능
+ ├─ cart         # 장바구니 및 수량 관리
+ ├─ order        # 주문 생성 및 결제 프로세스
+ ├─ review       # 상품 리뷰 및 평점 시스템
+ ├─ inquiry      # 1:1 문의 및 답변 시스템
+ ├─ dashboard    # 판매자 통계 및 매출 데이터 분석
+ ├─ notification # SSE(Server-Sent Events) 기반 실시간 알림
+ ├─ common       # 공통 유틸리티, 가드 및 설정 (S3 등)
+ ├─ prisma       # Prisma Client 및 데이터베이스 설정
+ └─ main.ts      # 애플리케이션 엔트리 포인트
+
+📦 prisma
+ ├─ schema.prisma  # 데이터베이스 스키마 정의
+ ├─ migrations     # DB 변경 이력 관리
+ └─ seed.ts        # 초기 데이터 세팅
+```
