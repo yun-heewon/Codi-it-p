@@ -9,7 +9,7 @@
 
 ## 구현 홈페이지
 
-**백엔드**: [https://codi-it-backend.site](https://codi-it.store/api)
+**백엔드**: [https://codi-it.store/api](https://codi-it.store/api)
 
 **프론트엔드**: [https://codi-it-frontend.vercel.app](https://codi-it-web.vercel.app)
 
