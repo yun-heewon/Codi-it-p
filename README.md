@@ -13,6 +13,8 @@
 
 **프론트엔드**: [https://codi-it-frontend.vercel.app](https://codi-it-web.vercel.app)
 
+**Swagger**: [http://3.39.106.217:3000/api-docs](http://3.39.106.217:3000/api-docs)
+
 <br>
 
 ### 주요 기능
