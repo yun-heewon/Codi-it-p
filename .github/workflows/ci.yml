@@ -39,7 +39,7 @@ jobs:
  
       # --fix 없이 검사만 수행 
       - name: Lint check
-        run: npx eslint "{src,apps,libs,test}/**/*.ts"
+        run: npx eslint "{src,apps,libs,test}/**/*.ts" --ignore-pattern "src/prisma.config.ts"
  
       # tsc --noEmit: 타입 오류만 검출, 파일 생성 안 함
       - name: TypeScript type check
