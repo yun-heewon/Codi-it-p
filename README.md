@@ -128,3 +128,4 @@
  ├─ migrations     # DB 변경 이력 관리
  └─ seed.ts        # 초기 데이터 세팅
 ```
+
